@@ -1,12 +1,12 @@
 import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useHomeController } from "@/services/controllers";
+import { useNotFoundController } from "@/services/controllers";
 import { makeStyles } from "@/theme";
 
-export default function HomeScreen() {
+export default function NotFoundScreen() {
   const styles = useStyles();
-  useHomeController();
+  useNotFoundController();
 
   return (
     <SafeAreaView style={styles.root} edges={["top"]}>

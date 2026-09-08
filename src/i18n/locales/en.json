@@ -1,0 +1,183 @@
+{
+  "common": {
+    "appName": "Expo Starter",
+    "home": "Home",
+    "next": "Next",
+    "skip": "Skip",
+    "back": "Back",
+    "getStarted": "Get Started",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "saving": "Saving…",
+    "retry": "Try Again",
+    "done": "Done",
+    "ok": "OK",
+    "seeAll": "See all",
+    "search": "Search",
+    "loading": "Loading…",
+    "optional": "Optional",
+    "goHome": "Go to Home",
+    "comingSoon": "Coming soon"
+  },
+  "form": {
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "Confirm password",
+    "fullName": "Full name",
+    "fullNamePlaceholder": "Jane Doe",
+    "phone": "Phone number",
+    "bio": "Bio",
+    "message": "Message",
+    "subject": "Subject",
+    "show": "Show",
+    "hide": "Hide"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "invalidEmail": "Enter a valid email address",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordMismatch": "Passwords do not match",
+    "invalidPhone": "Enter a valid phone number",
+    "otpIncomplete": "Enter the full 6-digit code"
+  },
+  "onboarding": {
+    "slide1Title": "Everything in one place",
+    "slide1Body": "A clean, ready-to-extend starter with the screens every app needs.",
+    "slide2Title": "Built for Arabic and English",
+    "slide2Body": "Full RTL support with a single tap — layout, icons and transitions all flip.",
+    "slide3Title": "Themed from day one",
+    "slide3Body": "Light and dark mode, consistent spacing and reusable components."
+  },
+  "auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Sign in to continue",
+    "signIn": "Sign In",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signupTitle": "Create account",
+    "signupSubtitle": "It only takes a minute",
+    "signUp": "Sign Up",
+    "acceptTerms": "I agree to the Terms and Privacy Policy",
+    "mustAcceptTerms": "Please accept the terms to continue",
+    "forgotTitle": "Forgot password",
+    "forgotSubtitle": "Enter your email and we'll send you a verification code.",
+    "sendCode": "Send Code",
+    "otpTitle": "Verify your email",
+    "otpSubtitle": "We sent a 6-digit code to {{email}}",
+    "verify": "Verify",
+    "resendCode": "Resend code",
+    "resendIn": "Resend code in {{seconds}}s",
+    "codeResent": "A new code has been sent",
+    "demoHint": "Demo mode — any credentials will work."
+  },
+  "home": {
+    "greeting": "Hello, {{name}}",
+    "subtitle": "Here's what's new today",
+    "categories": "Categories",
+    "featured": "Featured",
+    "recent": "Recent activity"
+  },
+  "search": {
+    "placeholder": "Search anything…",
+    "recent": "Recent searches",
+    "clear": "Clear",
+    "results_one": "{{count}} result",
+    "results_other": "{{count}} results",
+    "emptyTitle": "No results found",
+    "emptyBody": "Try a different keyword or clear your filters.",
+    "idleTitle": "Start typing",
+    "idleBody": "Search across your content by name or category."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "markAllRead": "Mark all as read",
+    "today": "Today",
+    "earlier": "Earlier",
+    "emptyTitle": "You're all caught up",
+    "emptyBody": "New notifications will show up here."
+  },
+  "profile": {
+    "title": "Profile",
+    "posts": "Posts",
+    "followers": "Followers",
+    "following": "Following",
+    "editProfile": "Edit Profile",
+    "settings": "Settings",
+    "support": "Help & Support",
+    "about": "About",
+    "logout": "Log out",
+    "logoutConfirmTitle": "Log out?",
+    "logoutConfirmBody": "You'll need to sign in again to continue.",
+    "editTitle": "Edit Profile",
+    "changePhoto": "Change photo",
+    "saved": "Profile updated"
+  },
+  "settings": {
+    "title": "Settings",
+    "appearance": "Appearance",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "preferences": "Preferences",
+    "language": "Language",
+    "pushNotifications": "Push notifications",
+    "emailUpdates": "Email updates",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms & Conditions",
+    "about": "About",
+    "support": "Contact Us"
+  },
+  "language": {
+    "title": "Select language",
+    "subtitle": "Changing the language restarts the app so the layout direction can update.",
+    "english": "English",
+    "arabic": "العربية",
+    "restartTitle": "Restart required",
+    "restartBody": "Switching to {{language}} will restart the app.",
+    "restartConfirm": "Restart now"
+  },
+  "about": {
+    "title": "About",
+    "tagline": "A clean, bilingual Expo starter template.",
+    "version": "Version {{version}}",
+    "build": "Build {{build}}",
+    "website": "Visit website",
+    "rate": "Rate the app",
+    "copyright": "© {{year}} Expo Starter. All rights reserved."
+  },
+  "support": {
+    "title": "Contact Us",
+    "subtitle": "We usually reply within one business day.",
+    "faq": "Frequently asked questions",
+    "sendMessage": "Send message",
+    "sent": "Thanks! Your message has been sent."
+  },
+  "legal": {
+    "privacyTitle": "Privacy Policy",
+    "termsTitle": "Terms & Conditions",
+    "lastUpdated": "Last updated: {{date}}"
+  },
+  "offline": {
+    "title": "No internet connection",
+    "body": "Check your Wi-Fi or mobile data and try again.",
+    "retry": "Retry"
+  },
+  "error": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The screen you're looking for doesn't exist or was moved.",
+    "genericTitle": "Something went wrong",
+    "genericBody": "An unexpected error occurred. Please try again."
+  },
+  "a11y": {
+    "back": "Go back",
+    "notifications": "Notifications",
+    "toggleTheme": "Toggle theme",
+    "clearSearch": "Clear search"
+  }
+}

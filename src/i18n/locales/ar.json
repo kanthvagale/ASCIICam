@@ -1,0 +1,187 @@
+{
+  "common": {
+    "appName": "قالب إكسبو",
+    "home": "الرئيسية",
+    "next": "التالي",
+    "skip": "تخطٍ",
+    "back": "رجوع",
+    "getStarted": "لنبدأ",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "save": "حفظ",
+    "saving": "جارٍ الحفظ…",
+    "retry": "إعادة المحاولة",
+    "done": "تم",
+    "ok": "حسناً",
+    "seeAll": "عرض الكل",
+    "search": "بحث",
+    "loading": "جارٍ التحميل…",
+    "optional": "اختياري",
+    "goHome": "الذهاب للرئيسية",
+    "comingSoon": "قريباً"
+  },
+  "form": {
+    "email": "البريد الإلكتروني",
+    "emailPlaceholder": "you@example.com",
+    "password": "كلمة المرور",
+    "passwordPlaceholder": "••••••••",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "fullName": "الاسم الكامل",
+    "fullNamePlaceholder": "محمد أحمد",
+    "phone": "رقم الهاتف",
+    "bio": "نبذة",
+    "message": "الرسالة",
+    "subject": "الموضوع",
+    "show": "إظهار",
+    "hide": "إخفاء"
+  },
+  "validation": {
+    "required": "{{field}} مطلوب",
+    "invalidEmail": "أدخل بريداً إلكترونياً صحيحاً",
+    "passwordTooShort": "يجب ألا تقل كلمة المرور عن ٨ أحرف",
+    "passwordMismatch": "كلمتا المرور غير متطابقتين",
+    "invalidPhone": "أدخل رقم هاتف صحيحاً",
+    "otpIncomplete": "أدخل الرمز المكوّن من ٦ أرقام"
+  },
+  "onboarding": {
+    "slide1Title": "كل شيء في مكان واحد",
+    "slide1Body": "قالب نظيف وجاهز للتوسعة يحتوي على الشاشات التي يحتاجها كل تطبيق.",
+    "slide2Title": "مصمم للعربية والإنجليزية",
+    "slide2Body": "دعم كامل للاتجاه من اليمين إلى اليسار بضغطة واحدة — التخطيط والأيقونات والانتقالات.",
+    "slide3Title": "بهوية بصرية منذ البداية",
+    "slide3Body": "الوضع الفاتح والداكن، ومسافات متناسقة، ومكوّنات قابلة لإعادة الاستخدام."
+  },
+  "auth": {
+    "loginTitle": "أهلاً بعودتك",
+    "loginSubtitle": "سجّل الدخول للمتابعة",
+    "signIn": "تسجيل الدخول",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "noAccount": "ليس لديك حساب؟",
+    "haveAccount": "لديك حساب بالفعل؟",
+    "signupTitle": "إنشاء حساب",
+    "signupSubtitle": "لن يستغرق الأمر سوى دقيقة",
+    "signUp": "إنشاء حساب",
+    "acceptTerms": "أوافق على الشروط وسياسة الخصوصية",
+    "mustAcceptTerms": "يرجى الموافقة على الشروط للمتابعة",
+    "forgotTitle": "نسيت كلمة المرور",
+    "forgotSubtitle": "أدخل بريدك الإلكتروني وسنرسل لك رمز التحقق.",
+    "sendCode": "إرسال الرمز",
+    "otpTitle": "تأكيد بريدك الإلكتروني",
+    "otpSubtitle": "أرسلنا رمزاً من ٦ أرقام إلى {{email}}",
+    "verify": "تحقق",
+    "resendCode": "إعادة إرسال الرمز",
+    "resendIn": "إعادة الإرسال خلال {{seconds}} ثانية",
+    "codeResent": "تم إرسال رمز جديد",
+    "demoHint": "وضع تجريبي — أي بيانات ستعمل."
+  },
+  "home": {
+    "greeting": "مرحباً، {{name}}",
+    "subtitle": "إليك أحدث المستجدات اليوم",
+    "categories": "التصنيفات",
+    "featured": "المميّز",
+    "recent": "النشاط الأخير"
+  },
+  "search": {
+    "placeholder": "ابحث عن أي شيء…",
+    "recent": "عمليات البحث الأخيرة",
+    "clear": "مسح",
+    "results_zero": "لا نتائج",
+    "results_one": "نتيجة واحدة",
+    "results_two": "نتيجتان",
+    "results_few": "{{count}} نتائج",
+    "results_many": "{{count}} نتيجة",
+    "results_other": "{{count}} نتيجة",
+    "emptyTitle": "لا توجد نتائج",
+    "emptyBody": "جرّب كلمة مختلفة أو امسح عوامل التصفية.",
+    "idleTitle": "ابدأ الكتابة",
+    "idleBody": "ابحث في محتواك بالاسم أو التصنيف."
+  },
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllRead": "تعليم الكل كمقروء",
+    "today": "اليوم",
+    "earlier": "سابقاً",
+    "emptyTitle": "لا يوجد جديد",
+    "emptyBody": "ستظهر الإشعارات الجديدة هنا."
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "posts": "المنشورات",
+    "followers": "المتابعون",
+    "following": "يتابع",
+    "editProfile": "تعديل الملف",
+    "settings": "الإعدادات",
+    "support": "المساعدة والدعم",
+    "about": "حول التطبيق",
+    "logout": "تسجيل الخروج",
+    "logoutConfirmTitle": "تسجيل الخروج؟",
+    "logoutConfirmBody": "ستحتاج إلى تسجيل الدخول مرة أخرى للمتابعة.",
+    "editTitle": "تعديل الملف",
+    "changePhoto": "تغيير الصورة",
+    "saved": "تم تحديث الملف الشخصي"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "appearance": "المظهر",
+    "theme": "السمة",
+    "themeLight": "فاتح",
+    "themeDark": "داكن",
+    "themeSystem": "النظام",
+    "preferences": "التفضيلات",
+    "language": "اللغة",
+    "pushNotifications": "الإشعارات الفورية",
+    "emailUpdates": "تحديثات البريد الإلكتروني",
+    "legal": "قانوني",
+    "privacy": "سياسة الخصوصية",
+    "terms": "الشروط والأحكام",
+    "about": "حول التطبيق",
+    "support": "اتصل بنا"
+  },
+  "language": {
+    "title": "اختر اللغة",
+    "subtitle": "تغيير اللغة يعيد تشغيل التطبيق حتى يتحدّث اتجاه التخطيط.",
+    "english": "English",
+    "arabic": "العربية",
+    "restartTitle": "إعادة التشغيل مطلوبة",
+    "restartBody": "التبديل إلى {{language}} سيعيد تشغيل التطبيق.",
+    "restartConfirm": "إعادة التشغيل الآن"
+  },
+  "about": {
+    "title": "حول التطبيق",
+    "tagline": "قالب إكسبو نظيف وثنائي اللغة.",
+    "version": "الإصدار {{version}}",
+    "build": "البنية {{build}}",
+    "website": "زيارة الموقع",
+    "rate": "قيّم التطبيق",
+    "copyright": "© {{year}} قالب إكسبو. جميع الحقوق محفوظة."
+  },
+  "support": {
+    "title": "اتصل بنا",
+    "subtitle": "نرد عادةً خلال يوم عمل واحد.",
+    "faq": "الأسئلة الشائعة",
+    "sendMessage": "إرسال الرسالة",
+    "sent": "شكراً لك! تم إرسال رسالتك."
+  },
+  "legal": {
+    "privacyTitle": "سياسة الخصوصية",
+    "termsTitle": "الشروط والأحكام",
+    "lastUpdated": "آخر تحديث: {{date}}"
+  },
+  "offline": {
+    "title": "لا يوجد اتصال بالإنترنت",
+    "body": "تحقق من شبكة الواي فاي أو بيانات الهاتف وحاول مرة أخرى.",
+    "retry": "إعادة المحاولة"
+  },
+  "error": {
+    "notFoundTitle": "الصفحة غير موجودة",
+    "notFoundBody": "الشاشة التي تبحث عنها غير موجودة أو تم نقلها.",
+    "genericTitle": "حدث خطأ ما",
+    "genericBody": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+  },
+  "a11y": {
+    "back": "رجوع",
+    "notifications": "الإشعارات",
+    "toggleTheme": "تبديل السمة",
+    "clearSearch": "مسح البحث"
+  }
+}
