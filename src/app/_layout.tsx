@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import { stackOptions } from "@/constants/navigation";
+import useFontLoading from "@/hooks/use-font-loading";
 import { useLocale } from "@/i18n";
 import { AppProviders } from "@/providers";
 import { useTheme, useThemeContext } from "@/theme";
@@ -23,8 +24,9 @@ function RootNavigator() {
   const theme = useTheme();
   const { isReady: themeReady } = useThemeContext();
   const { isReady: localeReady } = useLocale();
+  const { isReady: fontReady } = useFontLoading();
 
-  const isBootstrapped = themeReady && localeReady;
+  const isBootstrapped = themeReady && localeReady && fontReady;
 
   useEffect(() => {
     if (isBootstrapped) void SplashScreen.hideAsync();
