@@ -8,7 +8,12 @@
     "scheme": "asciicam",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "infoPlist": {
+        "NSCameraUsageDescription": "ASCIICam needs access to your Camera to capture photos and videos.",
+        "NSMicrophoneUsageDescription": "ASCIICam needs access to your Microphone to record audio for video recordings."
+      },
+      "bundleIdentifier": "com.happitite.ASCIICam"
     },
     "android": {
       "adaptiveIcon": {
@@ -17,7 +22,12 @@
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.happitite.ASCIICam"
     },
     "web": {
       "output": "static",
@@ -33,7 +43,15 @@
           "imageWidth": 76
         }
       ],
-      "expo-localization"
+      "expo-localization",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
