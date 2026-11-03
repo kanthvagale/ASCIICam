@@ -1,15 +1,15 @@
 import * as Haptics from "expo-haptics";
 import { useIsFocused, useRouter } from "expo-router";
 import { type RefObject, useCallback, useEffect, useState } from "react";
-import type { View } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { captureRef } from "react-native-view-shot";
 import {
   type Frame,
   useCameraPermission,
   useFrameOutput,
 } from "react-native-vision-camera";
 import { useResizer } from "react-native-vision-camera-resizer";
+
+import type { AsciiRendererHandle } from "@/components/ascii";
 
 import { PREVIEW_FADE_MS } from "@/constants/ascii";
 import { useIsForeground } from "@/hooks/use-is-foreground";
@@ -28,7 +28,7 @@ import { type CameraPosition, useSettingsStore } from "@/store/settings";
  * The view owns `previewRef` (refs can't travel through a render-time object)
  * and passes it in so capture can snapshot the ASCII preview.
  */
-export function useCameraController(previewRef: RefObject<View | null>) {
+export function useCameraController(previewRef: RefObject<AsciiRendererHandle | null>) {
   const router = useRouter();
 
   const options = useAsciiCamOptionsStore();
@@ -143,7 +143,9 @@ export function useCameraController(previewRef: RefObject<View | null>) {
 
     try {
       const text = ascii.get();
-      const tmpPngUri = await captureRef(previewRef, { format: "png", result: "tmpfile" });
+      const renderer = previewRef.current;
+      if (!renderer) return;
+      const tmpPngUri = await renderer.capturePng();
       const saved = await saveCapture({
         tmpPngUri,
         ascii: text,

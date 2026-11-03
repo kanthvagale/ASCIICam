@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, useWindowDimensions, View } from "react-native";
 
-import { AsciiOptionsForm, AsciiRenderer } from "@/components/ascii";
+import { type AsciiRendererHandle, AsciiOptionsForm, AsciiRenderer } from "@/components/ascii";
 import { EmptyState } from "@/components/empty-state";
 import { Screen } from "@/components/screen";
 import { Button, Loader } from "@/components/ui";
@@ -15,7 +15,7 @@ export default function UploadScreen() {
   const theme = useTheme();
   const { t } = useTranslation();
   const { width, height } = useWindowDimensions();
-  const previewRef = useRef<View>(null);
+  const previewRef = useRef<AsciiRendererHandle>(null);
   const vm = useUploadController(previewRef);
 
   if (!vm.hasImage) {

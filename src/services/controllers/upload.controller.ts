@@ -2,10 +2,10 @@ import * as Haptics from "expo-haptics";
 import * as ImagePicker from "expo-image-picker";
 import { type RefObject, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Alert, type View } from "react-native";
+import { Alert } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
-import { captureRef } from "react-native-view-shot";
 
+import type { AsciiRendererHandle } from "@/components/ascii";
 import { getCharset, imageToAscii } from "@/lib/ascii";
 import { saveCapture } from "@/services/captures";
 import { type AsciiOptions, useAsciiCamOptionsStore } from "@/store/camera-options";
@@ -19,7 +19,7 @@ import { useSettingsStore } from "@/store/settings";
  * upload never changes the live camera. The view owns `previewRef`, which
  * `save` snapshots.
  */
-export function useUploadController(previewRef: RefObject<View | null>) {
+export function useUploadController(previewRef: RefObject<AsciiRendererHandle | null>) {
   const { t } = useTranslation();
   const addCapture = useCapturesStore((s) => s.add);
   const haptics = useSettingsStore((s) => s.haptics);
@@ -78,7 +78,9 @@ export function useUploadController(previewRef: RefObject<View | null>) {
     if (!grid || isSaving || isSaved) return;
     setIsSaving(true);
     try {
-      const tmpPngUri = await captureRef(previewRef, { format: "png", result: "tmpfile" });
+      const renderer = previewRef.current;
+      if (!renderer) return;
+      const tmpPngUri = await renderer.capturePng();
       const saved = await saveCapture({
         tmpPngUri,
         ascii: ascii.value,

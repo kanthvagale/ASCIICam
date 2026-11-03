@@ -11,7 +11,7 @@ export const FONT_WH_RATIO = 3 / 4;
 export const MONO_CHAR_ASPECT = 0.6;
 
 /** Characters per row the user can pick from. */
-export const RESOLUTION_PRESETS = [48, 64, 96, 128, 160] as const;
+export const RESOLUTION_PRESETS = [48, 64, 96, 128, 160, 256, 512] as const;
 export type Resolution = (typeof RESOLUTION_PRESETS)[number];
 
 export const DEFAULT_RESOLUTION: Resolution = 96;

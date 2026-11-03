@@ -5,7 +5,7 @@ import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Camera } from "react-native-vision-camera";
 
-import { AsciiRenderer } from "@/components/ascii";
+import { type AsciiRendererHandle, AsciiRenderer } from "@/components/ascii";
 import { CameraBottomBar, CameraTopBar } from "@/components/camera";
 import { Button, Text } from "@/components/ui";
 import { PREVIEW_FADE_MS } from "@/constants/ascii";
@@ -16,7 +16,7 @@ import { makeStyles } from "@/theme";
 export default function CameraScreen() {
   const styles = useStyles();
   const { t } = useTranslation();
-  const previewRef = useRef<View>(null);
+  const previewRef = useRef<AsciiRendererHandle>(null);
   const vm = useCameraController(previewRef);
 
   return (

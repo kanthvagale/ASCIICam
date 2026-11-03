@@ -10,7 +10,7 @@ export const captureJsonUri = (id: string) => new File(capturesDir(), `${id}.jso
 const newId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
 export type SaveCaptureInput = Omit<Capture, "id" | "createdAt"> & {
-  /** Temp PNG produced by `captureRef(..., { result: "tmpfile" })`. */
+  /** Temp PNG from `AsciiRendererHandle.capturePng()`; moved into app storage. */
   tmpPngUri: string;
   ascii: string;
 };
