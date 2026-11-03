@@ -1,5 +1,4 @@
 import type { Colors } from "./colors";
-import type { Gradients } from "./gradients";
 import type { Radii } from "./radii";
 import type { Shadows } from "./shadows";
 import type { Sizes } from "./sizes";
@@ -13,7 +12,6 @@ export type Theme = {
   scheme: ColorScheme;
   isDark: boolean;
   colors: Colors;
-  gradients: Gradients;
   spacing: Spacing;
   typography: Typography;
   radii: Radii;

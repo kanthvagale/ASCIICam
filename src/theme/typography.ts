@@ -72,16 +72,11 @@ export const typography: Record<TextVariant, TextStyle> = {
   },
 };
 
-/**
- * Per-language font families. Left undefined so the app uses the system font
- * (which already ships good Arabic shaping). To brand the app, load a font with
- * `expo-font` and set it here — no screen has to change.
- *
- * e.g. en: "Inter_400Regular", ar: "Cairo_400Regular"
- */
-export const fontFamilies: Record<string, string | undefined> = {
-  en: undefined,
-  ar: undefined,
-};
+/** Monospace families: SpaceMono for UI and the wordmark, JetBrains Mono for ASCII output. */
+export const fontFamilies = {
+  mono: "SpaceMono-Regular",
+  monoBold: "SpaceMono-Bold",
+  ascii: "JetBrainsMono_700Bold",
+} as const;
 
 export type Typography = typeof typography;

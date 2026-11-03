@@ -1,4 +1,7 @@
+import { useRouter } from "expo-router";
+
 /** ViewModel for the `+not-found` route. */
 export function useNotFoundController() {
-  return {};
+  const router = useRouter();
+  return { goHome: () => router.replace("/camera") };
 }

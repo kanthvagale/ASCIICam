@@ -8,7 +8,6 @@ import {
 
 import { makeStyles, useTheme, type ColorToken } from "@/theme";
 
-import { GradientView } from "./gradient-view";
 import { Icon, type IconName } from "./icon";
 import { Text } from "./text";
 
@@ -16,8 +15,7 @@ export type ButtonVariant =
   | "primary"
   | "secondary"
   | "ghost"
-  | "danger"
-  | "gradient";
+  | "danger";
 export type ButtonSize = "sm" | "md" | "lg";
 
 export type ButtonProps = {
@@ -37,7 +35,6 @@ const labelColors: Record<ButtonVariant, ColorToken> = {
   secondary: "text",
   ghost: "primary",
   danger: "primaryText",
-  gradient: "primaryText",
 };
 
 export function Button({
@@ -82,16 +79,13 @@ export function Button({
       style={({ pressed }) => [
         styles.base,
         styles[size],
-        variant !== "gradient" && styles[variant],
+        styles[variant],
         fullWidth && styles.fullWidth,
         pressed && !isDisabled && styles.pressed,
         isDisabled && styles.disabled,
         style,
       ]}
     >
-      {variant === "gradient" ? (
-        <GradientView preset="primary" style={styles.gradientFill} />
-      ) : null}
       {inner}
     </Pressable>
   );
@@ -122,14 +116,6 @@ const useStyles = makeStyles((theme) => ({
   },
   ghost: { backgroundColor: "transparent" },
   danger: { backgroundColor: theme.colors.danger },
-  gradientFill: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    start: 0,
-    end: 0,
-    borderRadius: theme.radii.lg,
-  },
   pressed: { opacity: 0.85 },
   disabled: { opacity: 0.5 },
 }));

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { I18nManager, Pressable, View, type StyleProp, type ViewStyle } from "react-native";
+import { Pressable, View, type StyleProp, type ViewStyle } from "react-native";
 
 import { makeStyles } from "@/theme";
 
@@ -31,8 +31,6 @@ export function ListItem({
   style,
 }: ListItemProps) {
   const styles = useStyles();
-  // The chevron points the way navigation moves, which mirrors under RTL.
-  const chevron: IconName = I18nManager.isRTL ? "chevron-back" : "chevron-forward";
 
   const body = (
     <>
@@ -59,7 +57,7 @@ export function ListItem({
       </View>
 
       {right ?? (onPress && showChevron ? (
-        <Icon name={chevron} size="sm" color="textMuted" />
+        <Icon name="chevron-forward" size="sm" color="textMuted" />
       ) : null)}
     </>
   );

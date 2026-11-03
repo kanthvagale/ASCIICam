@@ -1,31 +1,24 @@
 import { Text as RNText, type TextProps as RNTextProps } from "react-native";
 
-import { useLocale } from "@/i18n";
-import {
-  fontFamilies,
-  useTheme,
-  type ColorToken,
-  type TextVariant,
-} from "@/theme";
+import { fontFamilies, useTheme, type ColorToken, type TextVariant } from "@/theme";
 
 export type TextProps = RNTextProps & {
   variant?: TextVariant;
   color?: ColorToken;
   align?: "auto" | "left" | "right" | "center";
-  /** Digits, emails and codes should stay LTR even in an RTL layout. */
-  forceLtr?: boolean;
+  /** Render in the app's monospace face (ASCII samples, numbers, the wordmark). */
+  mono?: boolean;
 };
 
 export function Text({
   variant = "body",
   color = "text",
   align = "auto",
-  forceLtr = false,
+  mono = false,
   style,
   ...rest
 }: TextProps) {
   const theme = useTheme();
-  const { language } = useLocale();
 
   const textAlign = align === "auto" ? "left" : align;
 
@@ -36,9 +29,8 @@ export function Text({
         theme.typography[variant],
         {
           color: theme.colors[color],
-          fontFamily: fontFamilies[language],
+          fontFamily: mono ? fontFamilies.mono : undefined,
           textAlign,
-          writingDirection: forceLtr ? "ltr" : "auto",
         },
         style,
       ]}

@@ -1,15 +1,14 @@
-import { SplashScreen, Stack } from "expo-router";
+import { SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
-import { stackOptions } from "@/constants/navigation";
 import useFontLoading from "@/hooks/use-font-loading";
-import { useLocale } from "@/i18n";
+import { TransitionStack as Stack } from "@/layout";
 import { AppProviders } from "@/providers";
-import { useTheme, useThemeContext } from "@/theme";
+import { useThemeContext } from "@/theme";
 
-// Keep the native splash up until the persisted theme and language have been
-// read — otherwise the first frame flashes the wrong theme/direction.
+// Keep the native splash up until the persisted theme and fonts are ready —
+// otherwise the first frame flashes the wrong theme or a fallback font.
 void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -21,12 +20,10 @@ export default function RootLayout() {
 }
 
 function RootNavigator() {
-  const theme = useTheme();
   const { isReady: themeReady } = useThemeContext();
-  const { isReady: localeReady } = useLocale();
   const { isReady: fontReady } = useFontLoading();
 
-  const isBootstrapped = themeReady && localeReady && fontReady;
+  const isBootstrapped = themeReady && fontReady;
 
   useEffect(() => {
     if (isBootstrapped) void SplashScreen.hideAsync();
@@ -36,8 +33,14 @@ function RootNavigator() {
 
   return (
     <>
-      <StatusBar style={theme.isDark ? "light" : "dark"} />
-      <Stack screenOptions={stackOptions} />
+      {/* Splash and camera are always black, so the status bar starts light;
+          themed screens set their own. */}
+      <StatusBar style="light" />
+      <Stack>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(main)" />
+        <Stack.Screen name="+not-found" />
+      </Stack>
     </>
   );
 }

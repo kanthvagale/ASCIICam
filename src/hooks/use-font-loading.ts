@@ -1,3 +1,4 @@
+import { JetBrainsMono_700Bold } from '@expo-google-fonts/jetbrains-mono/700Bold';
 import { useFonts } from 'expo-font';
 
 const useFontLoading = () => {
@@ -6,6 +7,7 @@ const useFontLoading = () => {
     'SpaceMono-BoldItalic': require('../assets/fonts/SpaceMono-BoldItalic.ttf'),
     'SpaceMono-Italic': require('../assets/fonts/SpaceMono-Italic.ttf'),
     'SpaceMono-Regular': require('../assets/fonts/SpaceMono-Regular.ttf'),
+    JetBrainsMono_700Bold,
   });
 
   return {

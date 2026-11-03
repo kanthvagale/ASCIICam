@@ -1,5 +1,4 @@
 export * from "./colors";
-export * from "./gradients";
 export * from "./make-styles";
 export * from "./radii";
 export * from "./shadows";

@@ -38,18 +38,34 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#208AEF",
+          "backgroundColor": "#000000",
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 76
         }
       ],
-      "expo-localization",
       [
         "expo-build-properties",
         {
           "android": {
             "minSdkVersion": 26
           }
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "ASCIICam needs access to your photos so you can turn them into ASCII art."
+        }
+      ],
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "ASCIICam needs access to your photos to save your ASCII captures.",
+          "savePhotosPermission": "ASCIICam saves your ASCII captures to your photo library.",
+          "isAccessMediaLocationEnabled": false,
+          "granularPermissions": [
+            "photo"
+          ]
         }
       ]
     ],

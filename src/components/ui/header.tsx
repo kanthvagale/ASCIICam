@@ -1,11 +1,11 @@
 import { useRouter } from "expo-router";
 import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { I18nManager, Pressable, View } from "react-native";
+import { View } from "react-native";
 
-import { makeStyles, useTheme } from "@/theme";
+import { makeStyles } from "@/theme";
 
-import { Icon, type IconName } from "./icon";
+import { IconButton } from "./icon-button";
 import { Text } from "./text";
 
 export type HeaderProps = {
@@ -13,36 +13,29 @@ export type HeaderProps = {
   subtitle?: string;
   showBack?: boolean;
   onBack?: () => void;
+  /** Trailing actions — pass `IconButton`s so they line up with the back button. */
   right?: ReactNode;
 };
 
-export function Header({
-  title,
-  subtitle,
-  showBack = false,
-  onBack,
-  right,
-}: HeaderProps) {
+/**
+ * Fixed-height header. The back button and trailing actions are the same
+ * `IconButton`, and both side slots share one width, so the height, icon
+ * positions and centred title match on every screen whatever goes in `right`.
+ */
+export function Header({ title, subtitle, showBack = false, onBack, right }: HeaderProps) {
   const styles = useStyles();
-  const theme = useTheme();
   const router = useRouter();
   const { t } = useTranslation();
-
-  // Back arrows mirror: in RTL, "back" points to the right of the screen.
-  const backIcon: IconName = I18nManager.isRTL ? "arrow-forward" : "arrow-back";
 
   return (
     <View style={styles.row}>
       <View style={styles.side}>
         {showBack ? (
-          <Pressable
+          <IconButton
+            icon="chevron-back"
             onPress={onBack ?? (() => router.back())}
-            hitSlop={theme.sizes.hitSlop}
-            accessibilityRole="button"
             accessibilityLabel={t("a11y.back")}
-          >
-            <Icon name={backIcon} size="md" color="text" />
-          </Pressable>
+          />
         ) : null}
       </View>
 
@@ -53,12 +46,7 @@ export function Header({
           </Text>
         ) : null}
         {subtitle ? (
-          <Text
-            variant="caption"
-            color="textMuted"
-            align="center"
-            numberOfLines={1}
-          >
+          <Text variant="caption" color="textMuted" align="center" numberOfLines={1}>
             {subtitle}
           </Text>
         ) : null}
@@ -71,12 +59,16 @@ export function Header({
 
 const useStyles = makeStyles((theme) => ({
   row: {
+    height: theme.sizes.header,
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: theme.spacing.md,
     gap: theme.spacing.sm,
   },
-  side: { minWidth: theme.sizes.icon.lg, justifyContent: "center" },
-  end: { alignItems: "flex-end" },
+  side: {
+    width: theme.sizes.control.md,
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  end: { justifyContent: "flex-end" },
   center: { flex: 1, alignItems: "center" },
 }));

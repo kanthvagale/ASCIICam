@@ -1,5 +1,4 @@
 import { darkColors, lightColors } from "./colors";
-import { darkGradients, lightGradients } from "./gradients";
 import { radii } from "./radii";
 import { shadows } from "./shadows";
 import { sizes } from "./sizes";
@@ -13,7 +12,6 @@ export const lightTheme: Theme = {
   scheme: "light",
   isDark: false,
   colors: lightColors,
-  gradients: lightGradients,
   ...shared,
 };
 
@@ -21,7 +19,6 @@ export const darkTheme: Theme = {
   scheme: "dark",
   isDark: true,
   colors: darkColors,
-  gradients: darkGradients,
   ...shared,
 };
 
