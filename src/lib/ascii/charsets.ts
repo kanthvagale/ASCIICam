@@ -1,7 +1,4 @@
-/**
- * Character ramps, darkest → brightest. Only glyphs JetBrains Mono ships are
- * used, so every character has the same advance width and rows stay aligned.
- */
+/** Darkest → brightest. */
 export const CHARSETS = {
   standard: "     ....----==++**#%@",
   detailed: " .'`^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$",

@@ -15,7 +15,6 @@ export default function OptionsScreen() {
   const { width } = useWindowDimensions();
   const vm = useOptionsController();
 
-  // Frame takes the sample grid's shape so the text fills it edge to edge.
   const previewWidth = width - theme.spacing.lg * 2;
   const previewHeight = (previewWidth * vm.previewRows) / (vm.previewColumns * MONO_CHAR_ASPECT);
 

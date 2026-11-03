@@ -5,14 +5,6 @@ import {
 } from "react-native-reanimated";
 import type { ScreenTransitionConfig } from "react-native-screen-transitions";
 
-/**
- * Custom screen transitions for `TransitionStack`.
- *
- * Ported from screen-transitions v3. v4 dropped `gestureActivationArea` and
- * `gestureResponseDistance`; the activation area now lives on each
- * `gestureDirection` entry (`area: "edge" | "screen" | <edge distance in pt>`).
- */
-
 export const DefaultSpec: WithSpringConfig = {
   stiffness: 1000,
   damping: 500,
@@ -205,7 +197,6 @@ export const CurtainTransition = (
     //@ts-expect-error - Should not lead to any issues
     enableTransitions: true,
     gestureEnabled: true,
-    // Edge swipe that starts within 60pt of the left edge.
     gestureDirection: { gesture: "horizontal", area: 60 },
     screenStyleInterpolator: ({
       layouts: {

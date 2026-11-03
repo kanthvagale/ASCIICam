@@ -14,11 +14,10 @@ import { makeStyles } from "@/theme";
 export type AsciiOptionsFormProps = {
   value: AsciiOptions;
   onChange: (patch: Partial<AsciiOptions>) => void;
-  /** Upload screen: hide hints and the background row to stay compact. */
+  /** Hides hints and the background row. */
   compact?: boolean;
 };
 
-/** The ASCII controls shared by the Options and Upload screens. */
 export function AsciiOptionsForm({ value, onChange, compact = false }: AsciiOptionsFormProps) {
   const styles = useStyles();
   const { t } = useTranslation();

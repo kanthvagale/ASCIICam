@@ -14,9 +14,7 @@ import { fontFamilies, makeStyles } from "@/theme";
 
 import { TwinkleStar } from "./twinkle-star";
 
-/** Wait before anything moves. */
 export const SPLASH_DELAY = 500;
-/** The whole animation, from first frame to fully faded out. */
 export const SPLASH_DURATION = 3000;
 
 const ZOOM_DURATION = 1200;
@@ -30,11 +28,6 @@ export type SplashWordmarkProps = {
   onFinish: () => void;
 };
 
-/**
- * "ASCii" zooms out into place, "Cam" rises in beneath it, and a sparkle
- * twinkles on the title's top-left corner. Calls `onFinish` once faded out,
- * SPLASH_DELAY + SPLASH_DURATION after mount.
- */
 export function SplashWordmark({ onFinish }: SplashWordmarkProps) {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -102,6 +95,5 @@ const useStyles = makeStyles((theme) => ({
     color: "#BDBDBD",
     marginTop: theme.spacing.xs,
   },
-  // Pinned to the title's top-left corner, nudged half outside it.
   star: { position: "absolute", top: -14, left: -18 },
 }));

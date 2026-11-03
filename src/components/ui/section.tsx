@@ -8,7 +8,6 @@ import { Text } from "./text";
 export type SectionProps = PropsWithChildren<{
   title?: string;
   hint?: string;
-  /** Wrap children in a card surface (settings lists). */
   card?: boolean;
   style?: StyleProp<ViewStyle>;
 }>;

@@ -10,9 +10,7 @@ export type IconButtonProps = {
   accessibilityLabel: string;
   size?: "sm" | "md" | "lg";
   color?: ColorToken;
-  /** Escape hatch for screens with a fixed background (camera, splash). */
   tint?: string;
-  /** Filled circular background — for buttons that float over the preview. */
   filled?: boolean;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;

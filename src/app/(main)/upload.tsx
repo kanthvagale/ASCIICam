@@ -32,8 +32,6 @@ export default function UploadScreen() {
     );
   }
 
-  // Frame takes the grid's shape at full width, capped at half the screen
-  // for tall images (the renderer then fits by height instead).
   const maxWidth = width - theme.spacing.lg * 2;
   const maxHeight = height * 0.5;
   const previewHeight = vm.grid
@@ -44,7 +42,6 @@ export default function UploadScreen() {
     <Screen title={t("upload.title")}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={[styles.preview, { height: previewHeight, backgroundColor: vm.options.background }]}>
-          {/* Nothing to size until the first conversion lands. */}
           {vm.grid ? (
             <AsciiRenderer
               ref={previewRef}
@@ -55,7 +52,7 @@ export default function UploadScreen() {
               background={vm.options.background}
             />
           ) : null}
-          {vm.isConverting ? <Loader style={styles.loader} /> : null}
+          {vm.isConverting ? <Loader label={t("upload.converting")} style={styles.loader} /> : null}
         </View>
 
         <View style={styles.actions}>

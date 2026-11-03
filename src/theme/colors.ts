@@ -1,9 +1,4 @@
-/**
- * Semantic color tokens. Both palettes MUST expose the same keys so a screen
- * never has to branch on light/dark. Add a token here, not in a screen.
- *
- * The palette is deliberately monochrome — the ASCII output is the colour.
- */
+/** Both palettes must expose the same keys. */
 export const lightColors = {
   background: "#FAFAFA",
   surface: "#F0F0F0",

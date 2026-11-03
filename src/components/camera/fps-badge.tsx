@@ -5,7 +5,6 @@ import { fontFamilies, makeStyles } from "@/theme";
 
 const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
 
-/** Live FPS readout, updated from the frame processor without re-rendering. */
 export function FpsBadge({ fps }: { fps: SharedValue<number> }) {
   const styles = useStyles();
 

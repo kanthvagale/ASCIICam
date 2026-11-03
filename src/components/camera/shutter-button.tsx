@@ -4,7 +4,6 @@ import { makeStyles } from "@/theme";
 
 export type ShutterButtonProps = {
   onPress: () => void;
-  /** Touch-down — for haptics, so feedback lands before `onPress`. */
   onPressIn?: () => void;
   disabled?: boolean;
   accessibilityLabel: string;

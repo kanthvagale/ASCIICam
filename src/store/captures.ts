@@ -14,10 +14,6 @@ type CapturesState = {
   clear: () => void;
 };
 
-/**
- * Index of saved captures. The files themselves are managed by
- * `@/services/captures`; this store only tracks what exists.
- */
 export const useCapturesStore = create<CapturesState>()(
   persist(
     (set) => ({

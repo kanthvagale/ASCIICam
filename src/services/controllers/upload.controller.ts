@@ -6,39 +6,31 @@ import { Alert } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 
 import type { AsciiRendererHandle } from "@/components/ascii";
+import { RESOLUTION_PRESETS } from "@/constants/ascii";
 import { getCharset, imageToAscii } from "@/lib/ascii";
 import { saveCapture } from "@/services/captures";
 import { type AsciiOptions, useAsciiCamOptionsStore } from "@/store/camera-options";
 import { useCapturesStore } from "@/store/captures";
 import { useSettingsStore } from "@/store/settings";
 
-/**
- * ViewModel for the `/upload` route.
- *
- * Options start from the camera's and are edited locally, so tweaking an
- * upload never changes the live camera. The view owns `previewRef`, which
- * `save` snapshots.
- */
 export function useUploadController(previewRef: RefObject<AsciiRendererHandle | null>) {
   const { t } = useTranslation();
   const addCapture = useCapturesStore((s) => s.add);
   const haptics = useSettingsStore((s) => s.haptics);
 
   const [options, setOptionsState] = useState<AsciiOptions>(() => {
-    const { resWidth, charsetId, foreground, background, invert } = useAsciiCamOptionsStore.getState();
-    return { resWidth, charsetId, foreground, background, invert };
+    const { charsetId, foreground, background, invert } = useAsciiCamOptionsStore.getState();
+    return { resWidth: RESOLUTION_PRESETS[0], charsetId, foreground, background, invert };
   });
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [grid, setGrid] = useState<{ columns: number; rows: number } | null>(null);
-  /** The inputs the current `ascii` was built from; differs while converting. */
   const [convertedKey, setConvertedKey] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
-  /** The look that was last saved; the Save button reads "Saved" until it changes. */
   const [savedKey, setSavedKey] = useState<string | null>(null);
   const ascii = useSharedValue("");
 
   const { resWidth, charsetId, invert } = options;
-  // Colours are applied at render time; only these change the characters.
+  // Colours don't change the characters.
   const inputKey = imageUri ? `${imageUri}|${resWidth}|${charsetId}|${invert}` : null;
   const isConverting = inputKey !== null && inputKey !== convertedKey;
   const lookKey = inputKey ? `${inputKey}|${options.foreground}|${options.background}` : null;
@@ -94,7 +86,6 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
       });
       addCapture(saved);
       if (haptics) void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      // Stay here so the user can tweak and save another variation.
       setSavedKey(lookKey);
     } catch {
       Alert.alert(t("error.genericTitle"), t("error.genericBody"));

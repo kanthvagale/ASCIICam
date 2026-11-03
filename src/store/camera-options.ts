@@ -11,7 +11,6 @@ import { DEFAULT_CHARSET, getCharset, type CharsetId } from "@/lib/ascii";
 
 import { persistStorage } from "./persist-storage";
 
-/** The choices a user makes — the only part that is persisted. */
 export type AsciiOptions = {
   resWidth: Resolution;
   charsetId: CharsetId;
@@ -20,7 +19,7 @@ export type AsciiOptions = {
   invert: boolean;
 };
 
-/** Values computed from the options, kept in the store so worklets read plain numbers. */
+/** Derived, kept here so worklets read plain numbers. */
 type DerivedOptions = {
   resHeight: number;
   pixelCount: number;
@@ -76,7 +75,6 @@ export const useAsciiCamOptionsStore = create<AsciiCamOptions>()(
       name: StorageKeys.cameraOptions,
       storage: persistStorage,
       partialize: (state) => pickOptions(state),
-      // Derived values aren't persisted — rebuild them from what was.
       merge: (persisted, current) => {
         const options = { ...pickOptions(current), ...(persisted as Partial<AsciiOptions>) };
         return { ...current, ...options, ...deriveOptions(options) };

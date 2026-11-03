@@ -7,8 +7,7 @@ import { TransitionStack as Stack } from "@/layout";
 import { AppProviders } from "@/providers";
 import { useThemeContext } from "@/theme";
 
-// Keep the native splash up until the persisted theme and fonts are ready —
-// otherwise the first frame flashes the wrong theme or a fallback font.
+// Keep the native splash up until theme and fonts load.
 void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
@@ -33,8 +32,6 @@ function RootNavigator() {
 
   return (
     <>
-      {/* Splash and camera are always black, so the status bar starts light;
-          themed screens set their own. */}
       <StatusBar style="light" />
       <Stack>
         <Stack.Screen name="index" />

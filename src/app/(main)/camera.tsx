@@ -33,7 +33,7 @@ export default function CameraScreen() {
       <View style={styles.preview}>
         {vm.hasPermission ? (
           <>
-            {/* Zero-size: frames feed the ASCII pipeline, the preview is the text. */}
+            {/* Hidden: only feeds frames to the ASCII pipeline. */}
             <Camera
               style={styles.invisible}
               isActive={vm.isActive}
@@ -90,7 +90,6 @@ export default function CameraScreen() {
   );
 }
 
-// The camera is always dark, whatever the app theme.
 const useStyles = makeStyles((theme) => ({
   root: { flex: 1, backgroundColor: "#000000" },
   preview: { flex: 1, borderRadius: theme.radii.lg, overflow: "hidden" },

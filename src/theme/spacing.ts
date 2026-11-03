@@ -1,10 +1,5 @@
 import { scale } from "react-native-size-matters";
 
-/**
- * 4pt scale, pre-scaled for device width.
- * `react-native-size-matters` is imported ONLY inside src/theme — screens read
- * `theme.spacing.md` so the scaling strategy stays swappable in one place.
- */
 export const spacing = {
   xs: scale(4),
   sm: scale(8),

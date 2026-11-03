@@ -14,21 +14,14 @@ import { useDerivedValue, type SharedValue } from "react-native-reanimated";
 
 import { makeStyles } from "@/theme";
 
-/**
- * Glyphs are laid out at this size, then the whole block is scaled to the
- * frame. Skia scales outlines, not bitmaps, so this only sets precision.
- */
 const BASE_FONT_SIZE = 32;
 
 export type AsciiRendererHandle = {
-  /** Snapshots the canvas to a temp PNG and returns its `file://` URI. */
   capturePng: () => Promise<string>;
 };
 
 export type AsciiRendererProps = {
-  /** Updated from any thread (frame processor, JS); redrawn on the UI thread. */
   text: SharedValue<string>;
-  /** Grid size — the block is scaled so this grid fills the frame. */
   columns: number;
   rows: number;
   color: string;
@@ -39,14 +32,6 @@ export type AsciiRendererProps = {
 
 type Size = { width: number; height: number };
 
-/**
- * Skia implementation of the ASCII renderer.
- *
- * Every time `text` changes, a Picture is recorded on the UI thread: one
- * `drawText` per row at a fixed font size, inside a transform that scales the
- * block to fill the frame exactly. Skia neither rounds font sizes nor shapes
- * ligatures, so rows always span edge to edge on both platforms.
- */
 export function AsciiRenderer({ text, columns, rows, color, background, ref, style }: AsciiRendererProps) {
   const styles = useStyles();
   const canvasRef = useCanvasRef();
@@ -58,7 +43,6 @@ export function AsciiRenderer({ text, columns, rows, color, background, ref, sty
     setFrame((prev) => (prev?.width === width && prev?.height === height ? prev : { width, height }));
   };
 
-  // Everything the worklet needs that only changes with layout, font or colours.
   const layout = useMemo(() => {
     if (!font || !frame || frame.width <= 0 || frame.height <= 0) return null;
 
@@ -77,11 +61,9 @@ export function AsciiRenderer({ text, columns, rows, color, background, ref, sty
       width: frame.width,
       height: frame.height,
       scale,
-      // Centre the scaled block in the frame.
       offsetX: (frame.width - blockWidth * scale) / 2,
       offsetY: (frame.height - blockHeight * scale) / 2,
       lineHeight,
-      // Centre each glyph box (ascent is negative) inside its line.
       baseline: (lineHeight - (descent - ascent)) / 2 - ascent,
       paint,
       background: Skia.Color(background),
@@ -90,8 +72,7 @@ export function AsciiRenderer({ text, columns, rows, color, background, ref, sty
 
   const picture = useDerivedValue(() => {
     const recorder = Skia.PictureRecorder();
-    // A recorder must always be started before it's finished — finishing an
-    // unstarted one dereferences a null canvas natively and crashes.
+    // Finishing an unstarted recorder crashes natively.
     if (!layout || !font) {
       recorder.beginRecording(Skia.XYWHRect(0, 0, 1, 1));
       return recorder.finishRecordingAsPicture();

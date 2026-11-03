@@ -10,7 +10,6 @@ export type ChipProps = {
   onPress?: () => void;
   selected?: boolean;
   icon?: IconName;
-  /** Category accent colour; falls back to the theme primary. */
   tint?: string;
   style?: StyleProp<ViewStyle>;
 };

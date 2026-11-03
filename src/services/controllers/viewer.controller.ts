@@ -12,7 +12,6 @@ import {
 } from "@/services/captures";
 import { useCapturesStore } from "@/store/captures";
 
-/** ViewModel for the `/viewer/[id]` route — one capture, full screen. */
 export function useViewerController() {
   const router = useRouter();
   const { t } = useTranslation();

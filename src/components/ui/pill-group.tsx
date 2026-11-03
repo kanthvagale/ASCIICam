@@ -13,11 +13,9 @@ export type PillGroupProps<T extends string | number> = {
   options: readonly PillOption<T>[];
   value: T;
   onChange: (value: T) => void;
-  /** Scroll horizontally instead of wrapping onto new lines. */
   scrollable?: boolean;
 };
 
-/** Single-select row of chips — resolution, charset, theme mode, … */
 export function PillGroup<T extends string | number>({
   options,
   value,

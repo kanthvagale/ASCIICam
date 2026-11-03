@@ -13,15 +13,9 @@ export type HeaderProps = {
   subtitle?: string;
   showBack?: boolean;
   onBack?: () => void;
-  /** Trailing actions — pass `IconButton`s so they line up with the back button. */
   right?: ReactNode;
 };
 
-/**
- * Fixed-height header. The back button and trailing actions are the same
- * `IconButton`, and both side slots share one width, so the height, icon
- * positions and centred title match on every screen whatever goes in `right`.
- */
 export function Header({ title, subtitle, showBack = false, onBack, right }: HeaderProps) {
   const styles = useStyles();
   const router = useRouter();

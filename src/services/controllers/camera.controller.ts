@@ -19,15 +19,6 @@ import { useAsciiCamOptionsStore } from "@/store/camera-options";
 import { useCapturesStore } from "@/store/captures";
 import { type CameraPosition, useSettingsStore } from "@/store/settings";
 
-/**
- * ViewModel for the `/camera` (home) route.
- *
- * Owns the camera pipeline — permission, frame output, resize, ASCII
- * conversion, FPS — plus capture and navigation. The view only lays it out.
- *
- * The view owns `previewRef` (refs can't travel through a render-time object)
- * and passes it in so capture can snapshot the ASCII preview.
- */
 export function useCameraController(previewRef: RefObject<AsciiRendererHandle | null>) {
   const router = useRouter();
 
@@ -46,18 +37,14 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
   const lastFrameTime = useSharedValue(0);
   const frameCount = useSharedValue(0);
 
-  // Only run the pipeline while this screen is on top and the app is visible.
-  // Screens pushed over the camera keep it mounted, so without this it would
-  // keep converting frames behind them.
+  // Pause the pipeline while covered or backgrounded.
   const isFocused = useIsFocused();
   const isForeground = useIsForeground();
   const isActive = isFocused && isForeground;
 
   useEffect(() => {
     if (isActive) return;
-    // Drop the stale frame so refocusing doesn't flash it before new frames
-    // arrive, and restart the FPS window from scratch. Waits out the preview's
-    // fade-out so the text doesn't vanish mid-fade.
+    // Clear after the fade-out so refocusing doesn't flash a stale frame.
     const timeout = setTimeout(() => {
       ascii.set("");
       fps.set(0);
@@ -132,7 +119,6 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
     if (settings.haptics) void Haptics.selectionAsync();
   }, [settings.haptics]);
 
-  /** Fires on touch-down so the shutter feels instant, before the capture work. */
   const shutterPressIn = useCallback(() => {
     if (settings.haptics) void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
   }, [settings.haptics]);

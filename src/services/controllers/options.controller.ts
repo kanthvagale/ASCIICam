@@ -3,7 +3,6 @@ import { useSharedValue } from "react-native-reanimated";
 
 import { useAsciiCamOptionsStore } from "@/store/camera-options";
 
-/** A small gradient sweep so the preview shows the whole ramp. */
 function sampleText(chars: string[], invert: boolean, columns: number, rows: number): string {
   const last = chars.length - 1;
   const lines: string[] = [];
@@ -24,7 +23,6 @@ function sampleText(chars: string[], invert: boolean, columns: number, rows: num
 const SAMPLE_COLUMNS = 40;
 const SAMPLE_ROWS = 12;
 
-/** ViewModel for the `/options` route. */
 export function useOptionsController() {
   const store = useAsciiCamOptionsStore();
   const preview = useSharedValue("");

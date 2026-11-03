@@ -10,12 +10,10 @@ export const captureJsonUri = (id: string) => new File(capturesDir(), `${id}.jso
 const newId = () => `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
 
 export type SaveCaptureInput = Omit<Capture, "id" | "createdAt"> & {
-  /** Temp PNG from `AsciiRendererHandle.capturePng()`; moved into app storage. */
   tmpPngUri: string;
   ascii: string;
 };
 
-/** Moves the snapshot into app storage and writes the ASCII alongside it. */
 export async function saveCapture({ tmpPngUri, ascii, ...meta }: SaveCaptureInput): Promise<Capture> {
   const dir = capturesDir();
   dir.create({ intermediates: true, idempotent: true });

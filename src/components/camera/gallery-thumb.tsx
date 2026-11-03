@@ -10,7 +10,6 @@ export type GalleryThumbProps = {
   accessibilityLabel: string;
 };
 
-/** Latest capture as a circle, or a placeholder icon when empty. */
 export function GalleryThumb({ uri, onPress, accessibilityLabel }: GalleryThumbProps) {
   const styles = useStyles();
   const theme = useTheme();

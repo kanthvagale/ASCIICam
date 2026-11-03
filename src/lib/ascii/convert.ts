@@ -1,12 +1,8 @@
-/**
- * Pure, worklet-safe pixel → ASCII conversion. Shared by the live camera
- * (frame processor thread) and uploaded images (JS thread).
- */
+/** Worklet-safe: runs on the frame processor and the JS thread. */
 
 export type PixelLayout =
-  /** RRR…GGG…BBB… — what the vision-camera resizer produces. */
+  /** RRR…GGG…BBB… */
   | { kind: "planar" }
-  /** Interleaved bytes; offsets are the R/G/B byte positions inside a pixel. */
   | {
       kind: "interleaved";
       bytesPerPixel: number;
@@ -22,10 +18,7 @@ export type ConvertOptions = {
   chars: string[];
   invert: boolean;
   layout: PixelLayout;
-  /**
-   * Walk the buffer back to front — a 180° rotation. The camera frame arrives
-   * upside down relative to the portrait preview, so the live view sets this.
-   */
+  /** Rotate 180° (camera frames arrive upside down). */
   reverse?: boolean;
 };
 
@@ -68,7 +61,6 @@ export function pixelsToAscii(pixels: Uint8Array, options: ConvertOptions): stri
 
     output += luminanceToChar(0.2126 * r + 0.7152 * g + 0.0722 * b, chars, invert);
 
-    // End of a row in walk order: x === 0 when reversed, x === width - 1 otherwise.
     const rowEnd = reverse ? x === 0 : x === width - 1;
     if (rowEnd && n !== pixelCount - 1) output += "\n";
   }

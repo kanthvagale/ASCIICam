@@ -71,7 +71,6 @@ export default function ViewerScreen() {
   );
 }
 
-// Always dark: a lightbox reads best on black regardless of theme.
 const useStyles = makeStyles((theme) => ({
   root: { flex: 1, backgroundColor: "#000000" },
   top: {

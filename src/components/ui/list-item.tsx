@@ -12,7 +12,6 @@ export type ListItemProps = {
   icon?: IconName;
   iconTint?: string;
   onPress?: () => void;
-  /** Replaces the chevron — e.g. a Switch or a value label. */
   right?: ReactNode;
   showChevron?: boolean;
   destructive?: boolean;

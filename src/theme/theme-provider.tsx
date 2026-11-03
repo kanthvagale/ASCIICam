@@ -80,7 +80,6 @@ export function useThemeContext(): ThemeContextValue {
   return ctx;
 }
 
-/** The hook screens and components use. */
 export function useTheme(): Theme {
   return useThemeContext().theme;
 }

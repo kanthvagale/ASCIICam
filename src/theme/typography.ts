@@ -72,7 +72,6 @@ export const typography: Record<TextVariant, TextStyle> = {
   },
 };
 
-/** Monospace families: SpaceMono for UI and the wordmark, JetBrains Mono for ASCII output. */
 export const fontFamilies = {
   mono: "SpaceMono-Regular",
   monoBold: "SpaceMono-Bold",

@@ -10,7 +10,6 @@ export type SwatchRowProps = {
   onChange: (value: string) => void;
 };
 
-/** Horizontal row of colour circles; the selected one gets a ring. */
 export function SwatchRow({ swatches, value, onChange }: SwatchRowProps) {
   const styles = useStyles();
 

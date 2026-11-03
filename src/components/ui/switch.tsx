@@ -18,18 +18,12 @@ export type SwitchProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-/**
- * Monochrome toggle: the track fills with the text colour when on and the
- * thumb springs across. Matches the app on both platforms instead of the
- * native iOS green / Android Material switch.
- */
 export function Switch({ value, onValueChange, disabled = false, accessibilityLabel, style }: SwitchProps) {
   const styles = useStyles();
   const theme = useTheme();
   const { width, height, inset } = theme.sizes.switch;
   const travel = width - height;
 
-  // 0 = off, 1 = on. Starts at the current value so it doesn't animate on mount.
   const progress = useSharedValue(value ? 1 : 0);
   const pressed = useSharedValue(0);
 
@@ -45,7 +39,6 @@ export function Switch({ value, onValueChange, disabled = false, accessibilityLa
   }));
 
   const thumbStyle = useAnimatedStyle(() => ({
-    // Stretches slightly while held, like the native control.
     width: height - inset * 2 + pressed.get() * inset * 2,
     transform: [{ translateX: progress.get() * (travel - pressed.get() * inset * 2) }],
   }));

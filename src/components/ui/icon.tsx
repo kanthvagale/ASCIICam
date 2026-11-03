@@ -9,7 +9,6 @@ export type IconProps = {
   name: IconName;
   size?: keyof ReturnType<typeof useTheme>["sizes"]["icon"] | number;
   color?: ColorToken;
-  /** Escape hatch for category colors that aren't theme tokens. */
   tint?: string;
   style?: StyleProp<TextStyle>;
 };

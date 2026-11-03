@@ -6,7 +6,6 @@ export type TextProps = RNTextProps & {
   variant?: TextVariant;
   color?: ColorToken;
   align?: "auto" | "left" | "right" | "center";
-  /** Render in the app's monospace face (ASCII samples, numbers, the wordmark). */
   mono?: boolean;
 };
 

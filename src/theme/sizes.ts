@@ -19,16 +19,13 @@ export const sizes = {
     lg: verticalScale(52),
   },
   hitSlop: { top: 8, bottom: 8, left: 8, right: 8 },
-  /** Screen header row; holds one `control.md` icon button plus breathing room. */
   header: verticalScale(56),
   border: 1,
   switch: {
     width: scale(46),
     height: scale(28),
-    /** Gap between the thumb and the track edge. */
     inset: scale(3),
   },
-  /** Camera shutter and its outer ring. */
   shutter: scale(72),
 } as const;
 

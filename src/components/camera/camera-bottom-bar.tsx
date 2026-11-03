@@ -16,7 +16,6 @@ export type CameraBottomBarProps = {
   onFlip: () => void;
 };
 
-/** Gallery · shutter · flip — the classic camera-app bottom row. */
 export function CameraBottomBar({
   thumbnailUri,
   isCapturing,

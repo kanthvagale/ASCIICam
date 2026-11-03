@@ -11,15 +11,9 @@ export type BottomSheetModalProps = PropsWithChildren<{
   onClose: () => void;
   title?: string;
   subtitle?: string;
-  /** Blocks backdrop taps and the hardware back button (used when offline). */
   dismissible?: boolean;
 }>;
 
-/**
- * The base every modal in the app is built on: a dimmed backdrop plus a sheet
- * that slides up from the bottom. Bottom sheets don't mirror in RTL, so no
- * direction handling is needed here.
- */
 export function BottomSheetModal({
   visible,
   onClose,

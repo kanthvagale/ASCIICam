@@ -9,7 +9,6 @@ import { useCapturesStore } from "@/store/captures";
 import { useSettingsStore } from "@/store/settings";
 import { useThemeContext } from "@/theme";
 
-/** ViewModel for the `/settings` route. */
 export function useSettingsController() {
   const { mode, setMode } = useThemeContext();
   const settings = useSettingsStore();

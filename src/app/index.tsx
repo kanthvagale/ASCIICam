@@ -15,7 +15,6 @@ export default function SplashScreen() {
   );
 }
 
-// Always black — matches the native splash so the handoff is seamless.
 const useStyles = makeStyles(() => ({
   root: {
     flex: 1,
