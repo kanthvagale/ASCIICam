@@ -44,3 +44,9 @@ example
 
 # claude
 .claude/
+
+# promo video
+/promo/raw/
+/promo/out/
+/promo/node_modules/
+/promo/public/raw
