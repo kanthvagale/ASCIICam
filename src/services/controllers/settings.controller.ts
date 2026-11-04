@@ -1,4 +1,5 @@
 import Constants from "expo-constants";
+import { useRouter } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
 import { useCallback, useState } from "react";
 
@@ -10,6 +11,7 @@ import { useSettingsStore } from "@/store/settings";
 import { useThemeContext } from "@/theme";
 
 export function useSettingsController() {
+  const router = useRouter();
   const { mode, setMode } = useThemeContext();
   const settings = useSettingsStore();
   const captureCount = useCapturesStore((s) => s.captures.length);
@@ -37,6 +39,7 @@ export function useSettingsController() {
     cancelClear: () => setConfirmingClear(false),
     clearGallery,
     resetOptions,
+    openGallery: () => router.push("/gallery"),
     version: Constants.expoConfig?.version ?? "—",
     openLicenses: AppLinks.licenses ? openLink(AppLinks.licenses) : undefined,
     openFeedback: AppLinks.feedback ? openLink(AppLinks.feedback) : undefined,

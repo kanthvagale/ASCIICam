@@ -39,7 +39,7 @@ export default function CameraScreen() {
               isActive={vm.isActive}
               device={vm.position}
               outputs={[vm.frameOutput]}
-              mirrorMode={vm.mirrorMode}
+              mirrorMode="off"
               constraints={[{ fps: 60 }]}
               orientationSource="custom"
             />

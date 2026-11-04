@@ -43,13 +43,6 @@ export default function SettingsScreen() {
 
         <Section card>
           <ToggleRow
-            title={t("settings.mirrorFront")}
-            icon="swap-horizontal-outline"
-            value={vm.settings.mirrorFront}
-            onChange={(value) => vm.setSetting("mirrorFront", value)}
-          />
-          <Divider inset />
-          <ToggleRow
             title={t("settings.showFps")}
             icon="speedometer-outline"
             value={vm.settings.showFps}
@@ -78,6 +71,7 @@ export default function SettingsScreen() {
           <ListItem
             title={t("settings.captureCount", { count: vm.captureCount })}
             icon="images-outline"
+            onPress={vm.openGallery}
           />
           <Divider inset />
           <ListItem

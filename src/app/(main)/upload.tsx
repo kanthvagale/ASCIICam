@@ -2,10 +2,14 @@ import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView, useWindowDimensions, View } from "react-native";
 
-import { type AsciiRendererHandle, AsciiOptionsForm, AsciiRenderer } from "@/components/ascii";
+import {
+  type AsciiRendererHandle,
+  AsciiOptionsForm,
+  AsciiRenderer,
+} from "@/components/ascii";
 import { EmptyState } from "@/components/empty-state";
 import { Screen } from "@/components/screen";
-import { Button, Loader } from "@/components/ui";
+import { Button, IconButton, Loader } from "@/components/ui";
 import { MONO_CHAR_ASPECT } from "@/constants/ascii";
 import { useUploadController } from "@/services/controllers";
 import { makeStyles, useTheme } from "@/theme";
@@ -35,13 +39,31 @@ export default function UploadScreen() {
   const maxWidth = width - theme.spacing.lg * 2;
   const maxHeight = height * 0.5;
   const previewHeight = vm.grid
-    ? Math.min((maxWidth * vm.grid.rows) / (vm.grid.columns * MONO_CHAR_ASPECT), maxHeight)
+    ? Math.min(
+        (maxWidth * vm.grid.rows) / (vm.grid.columns * MONO_CHAR_ASPECT),
+        maxHeight,
+      )
     : maxHeight * 0.6;
 
   return (
-    <Screen title={t("upload.title")}>
+    <Screen
+      title={t("upload.title")}
+      right={
+        <IconButton
+          icon="copy-outline"
+          onPress={() => void vm.copyText()}
+          disabled={!vm.grid || vm.isConverting}
+          accessibilityLabel={t("gallery.copyText")}
+        />
+      }
+    >
       <ScrollView contentContainerStyle={styles.content}>
-        <View style={[styles.preview, { height: previewHeight, backgroundColor: vm.options.background }]}>
+        <View
+          style={[
+            styles.preview,
+            { height: previewHeight, backgroundColor: vm.options.background },
+          ]}
+        >
           {vm.grid ? (
             <AsciiRenderer
               ref={previewRef}
@@ -52,7 +74,9 @@ export default function UploadScreen() {
               background={vm.options.background}
             />
           ) : null}
-          {vm.isConverting ? <Loader label={t("upload.converting")} style={styles.loader} /> : null}
+          {vm.isConverting ? (
+            <Loader label={t("upload.converting")} style={styles.loader} />
+          ) : null}
         </View>
 
         <View style={styles.actions}>
@@ -66,7 +90,11 @@ export default function UploadScreen() {
           />
           <Button
             label={
-              vm.isSaving ? t("common.saving") : vm.isSaved ? t("upload.saved") : t("common.save")
+              vm.isSaving
+                ? t("common.saving")
+                : vm.isSaved
+                  ? t("upload.saved")
+                  : t("common.save")
             }
             icon={vm.isSaved ? "checkmark-done" : "checkmark"}
             fullWidth={false}
@@ -84,9 +112,20 @@ export default function UploadScreen() {
 }
 
 const useStyles = makeStyles((theme) => ({
-  content: { padding: theme.spacing.lg, gap: theme.spacing.xl, paddingBottom: theme.spacing.xxxl },
+  content: {
+    padding: theme.spacing.lg,
+    gap: theme.spacing.xl,
+    paddingBottom: theme.spacing.xxxl,
+  },
   preview: { borderRadius: theme.radii.md, overflow: "hidden" },
-  loader: { position: "absolute", top: 0, bottom: 0, start: 0, end: 0, backgroundColor: "rgba(0, 0, 0, 0.35)" },
+  loader: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    start: 0,
+    end: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.35)",
+  },
   actions: { flexDirection: "row", gap: theme.spacing.sm },
   action: { flex: 1 },
 }));

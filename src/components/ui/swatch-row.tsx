@@ -17,10 +17,12 @@ export function SwatchRow({ swatches, value, onChange }: SwatchRowProps) {
     <ScrollView
       horizontal
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.row}
+      style={styles.bleed}
+      contentContainerStyle={[styles.row, styles.bleedContent]}
     >
       {swatches.map((swatch) => {
-        const selected = swatch.value.toLowerCase() === value.toLowerCase();
+        const color = swatch.value;
+        const selected = color.toLowerCase() === value.toLowerCase();
         return (
           <Pressable
             key={swatch.value}
@@ -30,7 +32,7 @@ export function SwatchRow({ swatches, value, onChange }: SwatchRowProps) {
             accessibilityState={{ selected }}
             style={[styles.ring, selected && styles.ringSelected]}
           >
-            <View style={[styles.dot, { backgroundColor: swatch.value }]} />
+            <View style={[styles.dot, { backgroundColor: color }]} />
           </Pressable>
         );
       })}
@@ -40,6 +42,9 @@ export function SwatchRow({ swatches, value, onChange }: SwatchRowProps) {
 
 const useStyles = makeStyles((theme) => ({
   row: { flexDirection: "row", gap: theme.spacing.sm },
+  // Run edge to edge past the screen's content padding.
+  bleed: { marginHorizontal: -theme.spacing.lg },
+  bleedContent: { paddingHorizontal: theme.spacing.lg },
   ring: {
     width: theme.sizes.control.sm,
     height: theme.sizes.control.sm,

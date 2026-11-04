@@ -176,7 +176,6 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
     requestPermission,
     isActive,
     position,
-    mirrorMode: position === "front" && settings.mirrorFront ? ("on" as const) : ("off" as const),
     showFps: settings.showFps,
     options,
     latestCapture,

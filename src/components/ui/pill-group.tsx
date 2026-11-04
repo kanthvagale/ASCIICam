@@ -38,7 +38,8 @@ export function PillGroup<T extends string | number>({
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.row}
+        style={styles.bleed}
+        contentContainerStyle={[styles.row, styles.bleedContent]}
       >
         {pills}
       </ScrollView>
@@ -51,4 +52,7 @@ export function PillGroup<T extends string | number>({
 const useStyles = makeStyles((theme) => ({
   row: { flexDirection: "row", gap: theme.spacing.sm },
   wrap: { flexWrap: "wrap" },
+  // Run edge to edge past the screen's content padding.
+  bleed: { marginHorizontal: -theme.spacing.lg },
+  bleedContent: { paddingHorizontal: theme.spacing.lg },
 }));

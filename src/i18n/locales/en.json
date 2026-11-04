@@ -75,7 +75,6 @@
     "defaultCamera": "Default camera",
     "cameraBack": "Back",
     "cameraFront": "Front",
-    "mirrorFront": "Mirror front camera",
     "showFps": "Show FPS",
     "capture": "Capture",
     "autoSave": "Auto-save to Photos",
@@ -91,7 +90,8 @@
     "about": "About",
     "version": "Version",
     "licenses": "Open-source licenses",
-    "feedback": "Send feedback"
+    "feedback": "Send feedback",
+    "madeBy": "Made by"
   },
   "splash": {
     "title": "ASCii",

@@ -31,7 +31,7 @@ const isThemeMode = (value: string | null): value is ThemeMode =>
 
 export function ThemeProvider({ children }: PropsWithChildren) {
   const systemScheme = useColorScheme();
-  const [mode, setModeState] = useState<ThemeMode>("system");
+  const [mode, setModeState] = useState<ThemeMode>("dark");
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {

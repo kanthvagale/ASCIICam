@@ -9,7 +9,6 @@ export type CameraPosition = "back" | "front";
 
 export type AppSettings = {
   defaultCamera: CameraPosition;
-  mirrorFront: boolean;
   showFps: boolean;
   autoSaveToPhotos: boolean;
   haptics: boolean;
@@ -21,7 +20,6 @@ type SettingsState = AppSettings & {
 
 const defaultSettings: AppSettings = {
   defaultCamera: "back",
-  mirrorFront: true,
   showFps: false,
   autoSaveToPhotos: false,
   haptics: true,

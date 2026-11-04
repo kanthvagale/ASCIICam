@@ -96,7 +96,7 @@ export const SlideFromBottomTransition = (
         return {
           content: {
             style: {
-              transform: [{ translateY: y / 10 }],
+              transform: [{ translateY: 0 }],
             },
           },
         };

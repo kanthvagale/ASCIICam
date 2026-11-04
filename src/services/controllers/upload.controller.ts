@@ -1,3 +1,4 @@
+import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import * as ImagePicker from "expo-image-picker";
 import { type RefObject, useCallback, useEffect, useState } from "react";
@@ -97,6 +98,16 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
     }
   }, [addCapture, ascii, grid, haptics, isSaved, isSaving, lookKey, options, previewRef, t]);
 
+  const copyText = useCallback(async () => {
+    try {
+      await Clipboard.setStringAsync(ascii.value);
+      Alert.alert(t("gallery.copied"));
+    } catch (error) {
+      reportError(error, "upload.copy");
+      Alert.alert(t("error.genericTitle"), t("error.genericBody"));
+    }
+  }, [ascii, t]);
+
   return {
     ascii,
     options,
@@ -108,5 +119,6 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
     isSaved,
     pickImage,
     save,
+    copyText,
   };
 }

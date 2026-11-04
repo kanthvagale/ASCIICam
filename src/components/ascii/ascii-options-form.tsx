@@ -14,7 +14,7 @@ import { makeStyles } from "@/theme";
 export type AsciiOptionsFormProps = {
   value: AsciiOptions;
   onChange: (patch: Partial<AsciiOptions>) => void;
-  /** Hides hints and the background row. */
+  /** Hides hints and scrolls pill rows sideways instead of wrapping. */
   compact?: boolean;
 };
 
@@ -59,15 +59,13 @@ export function AsciiOptionsForm({ value, onChange, compact = false }: AsciiOpti
         />
       </Section>
 
-      {compact ? null : (
-        <Section title={t("options.background")}>
-          <SwatchRow
-            swatches={BACKGROUND_PRESETS}
-            value={value.background}
-            onChange={(background) => onChange({ background })}
-          />
-        </Section>
-      )}
+      <Section title={t("options.background")}>
+        <SwatchRow
+          swatches={BACKGROUND_PRESETS}
+          value={value.background}
+          onChange={(background) => onChange({ background })}
+        />
+      </Section>
 
       <Section card>
         <ToggleRow
