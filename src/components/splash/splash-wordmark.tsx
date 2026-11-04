@@ -23,6 +23,8 @@ const STAR_AT = 1100;
 const FADE_OUT = 350;
 
 const TITLE_SIZE = 72;
+const SUBTITLE_SIZE = 16;
+const SUBTITLE_TRACKING = 3;
 
 export type SplashWordmarkProps = {
   onFinish: () => void;
@@ -35,7 +37,7 @@ export function SplashWordmark({ onFinish }: SplashWordmarkProps) {
   const titleScale = useSharedValue(1.8);
   const titleOpacity = useSharedValue(0);
   const subtitleOpacity = useSharedValue(0);
-  const subtitleShift = useSharedValue(12);
+  const subtitleShift = useSharedValue(6);
   const containerOpacity = useSharedValue(1);
 
   useEffect(() => {
@@ -89,11 +91,17 @@ const useStyles = makeStyles((theme) => ({
     includeFontPadding: false,
   },
   subtitle: {
-    fontFamily: fontFamilies.mono,
-    fontSize: 20,
-    letterSpacing: 8,
+    fontFamily: fontFamilies.monoBold,
+    fontSize: SUBTITLE_SIZE,
+    lineHeight: SUBTITLE_SIZE,
+    letterSpacing: SUBTITLE_TRACKING,
+    // Right-align under the title; letter spacing trails the last glyph, so pull it back in.
+    alignSelf: "flex-end",
+    marginRight: -SUBTITLE_TRACKING,
     color: "#BDBDBD",
-    marginTop: theme.spacing.xs,
+    includeFontPadding: false,
+    // Tuck into the space below the title's baseline ("ASCii" has no descenders).
+    marginTop: -TITLE_SIZE * 0.12,
   },
   star: { position: "absolute", top: -14, left: -18 },
 }));
