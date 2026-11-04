@@ -1,18 +1,16 @@
-import {
-  SlideFromBottomTransition,
-  SlideFromTopTransition,
-  TransitionStack as Stack
-} from "@/layout";
+import { Stack } from "expo-router";
+
+import { FadeScreen, SheetScreen, stackScreenOptions } from "@/layout";
 
 export default function MainLayout() {
   return (
-    <Stack>
+    <Stack screenOptions={stackScreenOptions}>
       <Stack.Screen name="camera" />
-      <Stack.Screen name="settings" options={SlideFromTopTransition()} />
-      <Stack.Screen name="options" options={SlideFromTopTransition()} />
-      <Stack.Screen name="gallery" options={SlideFromBottomTransition()} />
-      <Stack.Screen name="upload" options={SlideFromBottomTransition()} />
-      <Stack.Screen name="viewer/[id]" options={SlideFromBottomTransition()} />
+      <Stack.Screen name="settings" options={FadeScreen} />
+      <Stack.Screen name="options" options={FadeScreen} />
+      <Stack.Screen name="gallery" options={SheetScreen} />
+      <Stack.Screen name="upload" options={SheetScreen} />
+      <Stack.Screen name="viewer/[id]" options={SheetScreen} />
     </Stack>
   );
 }

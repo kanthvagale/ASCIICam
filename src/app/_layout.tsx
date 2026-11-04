@@ -2,13 +2,14 @@ import {
   ErrorBoundary as RouterErrorBoundary,
   type ErrorBoundaryProps,
   SplashScreen,
+  Stack,
   usePathname,
 } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import useFontLoading from "@/hooks/use-font-loading";
-import { TransitionStack as Stack } from "@/layout";
+import { FadeScreen, stackScreenOptions } from "@/layout";
 import { AppProviders } from "@/providers";
 import { reportError, setScreen } from "@/services/crashlytics";
 import { useThemeContext } from "@/theme";
@@ -52,9 +53,9 @@ function RootNavigator() {
   return (
     <>
       <StatusBar style="light" />
-      <Stack>
+      <Stack screenOptions={stackScreenOptions}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="(main)" />
+        <Stack.Screen name="(main)" options={FadeScreen} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </>
