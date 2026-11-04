@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "539075398926",
+    "project_id": "asciicam-happitite",
+    "storage_bucket": "asciicam-happitite.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539075398926:android:e891ee6401d0c4222c1b5f",
+        "android_client_info": {
+          "package_name": "com.happitite.ASCIICam"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCohwpcN8Skq1oc2ZVJPVpJDUm5belsDR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

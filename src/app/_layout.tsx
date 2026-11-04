@@ -1,14 +1,28 @@
-import { SplashScreen } from "expo-router";
+import {
+  ErrorBoundary as RouterErrorBoundary,
+  type ErrorBoundaryProps,
+  SplashScreen,
+  usePathname,
+} from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
 import useFontLoading from "@/hooks/use-font-loading";
 import { TransitionStack as Stack } from "@/layout";
 import { AppProviders } from "@/providers";
+import { reportError, setScreen } from "@/services/crashlytics";
 import { useThemeContext } from "@/theme";
 
 // Keep the native splash up until theme and fonts load.
 void SplashScreen.preventAutoHideAsync();
+
+export function ErrorBoundary(props: ErrorBoundaryProps) {
+  useEffect(() => {
+    reportError(props.error, "render");
+  }, [props.error]);
+
+  return <RouterErrorBoundary {...props} />;
+}
 
 export default function RootLayout() {
   return (
@@ -23,6 +37,11 @@ function RootNavigator() {
   const { isReady: fontReady } = useFontLoading();
 
   const isBootstrapped = themeReady && fontReady;
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setScreen(pathname);
+  }, [pathname]);
 
   useEffect(() => {
     if (isBootstrapped) void SplashScreen.hideAsync();

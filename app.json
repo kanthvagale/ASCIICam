@@ -10,10 +10,10 @@
     "ios": {
       "icon": "./assets/images/icon.png",
       "infoPlist": {
-        "NSCameraUsageDescription": "ASCIICam needs access to your Camera to capture photos and videos.",
-        "NSMicrophoneUsageDescription": "ASCIICam needs access to your Microphone to record audio for video recordings."
+        "NSCameraUsageDescription": "ASCIICam uses the camera to turn what it sees into live ASCII art."
       },
-      "bundleIdentifier": "com.happitite.ASCIICam"
+      "bundleIdentifier": "com.happitite.ASCIICam",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
@@ -24,10 +24,13 @@
       },
       "predictiveBackGestureEnabled": false,
       "permissions": [
-        "android.permission.CAMERA",
+        "android.permission.CAMERA"
+      ],
+      "package": "com.happitite.ASCIICam",
+      "blockedPermissions": [
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.happitite.ASCIICam"
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "output": "static",
@@ -35,6 +38,8 @@
     },
     "plugins": [
       "expo-router",
+      "@react-native-firebase/app",
+      "@react-native-firebase/crashlytics",
       [
         "expo-splash-screen",
         {
@@ -48,6 +53,9 @@
         {
           "android": {
             "minSdkVersion": 26
+          },
+          "ios": {
+            "useFrameworks": "dynamic"
           }
         }
       ],

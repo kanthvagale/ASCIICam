@@ -10,6 +10,7 @@ import {
   exportToPhotos,
   readCaptureAscii,
 } from "@/services/captures";
+import { reportError } from "@/services/crashlytics";
 import { useCapturesStore } from "@/store/captures";
 
 export function useViewerController() {
@@ -28,7 +29,8 @@ export function useViewerController() {
     try {
       const result = await exportToPhotos(capturePngUri(capture.id));
       Alert.alert(result === "saved" ? t("gallery.exported") : t("gallery.exportDenied"));
-    } catch {
+    } catch (error) {
+      reportError(error, "viewer.export");
       Alert.alert(t("error.genericTitle"), t("error.genericBody"));
     } finally {
       setIsExporting(false);
@@ -37,8 +39,13 @@ export function useViewerController() {
 
   const copyAscii = useCallback(async () => {
     if (!capture) return;
-    await Clipboard.setStringAsync(await readCaptureAscii(capture.id));
-    Alert.alert(t("gallery.copied"));
+    try {
+      await Clipboard.setStringAsync(await readCaptureAscii(capture.id));
+      Alert.alert(t("gallery.copied"));
+    } catch (error) {
+      reportError(error, "viewer.copy");
+      Alert.alert(t("error.genericTitle"), t("error.genericBody"));
+    }
   }, [capture, t]);
 
   const deleteCapture = useCallback(() => {

@@ -9,6 +9,7 @@ import type { AsciiRendererHandle } from "@/components/ascii";
 import { RESOLUTION_PRESETS } from "@/constants/ascii";
 import { getCharset, imageToAscii } from "@/lib/ascii";
 import { saveCapture } from "@/services/captures";
+import { reportError } from "@/services/crashlytics";
 import { type AsciiOptions, useAsciiCamOptionsStore } from "@/store/camera-options";
 import { useCapturesStore } from "@/store/captures";
 import { useSettingsStore } from "@/store/settings";
@@ -46,7 +47,8 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
         ascii.value = result.text;
         setGrid({ columns: result.columns, rows: result.rows });
       })
-      .catch(() => {
+      .catch((error: unknown) => {
+        reportError(error, "upload.convert");
         if (!cancelled) Alert.alert(t("upload.failed"));
       })
       .finally(() => {
@@ -87,7 +89,8 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
       addCapture(saved);
       if (haptics) void Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       setSavedKey(lookKey);
-    } catch {
+    } catch (error) {
+      reportError(error, "upload.save");
       Alert.alert(t("error.genericTitle"), t("error.genericBody"));
     } finally {
       setIsSaving(false);
