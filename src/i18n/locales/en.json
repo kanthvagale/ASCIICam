@@ -111,5 +111,14 @@
     "shutter": "Capture",
     "flip": "Switch camera",
     "upload": "Upload image"
+  },
+  "update": {
+    "availableTitle": "Update available",
+    "availableBody": "A new version of ASCIICam is out. It downloads in the background while you keep shooting.",
+    "update": "Update",
+    "later": "Later",
+    "readyTitle": "Update ready",
+    "readyBody": "Restart ASCIICam to finish installing the new version.",
+    "restart": "Restart"
   }
 }

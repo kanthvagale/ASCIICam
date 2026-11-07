@@ -1,3 +1,4 @@
+export * from "./app-update.controller";
 export * from "./camera.controller";
 export * from "./gallery.controller";
 export * from "./not-found.controller";

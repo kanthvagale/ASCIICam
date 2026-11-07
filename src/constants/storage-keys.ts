@@ -3,4 +3,5 @@ export const StorageKeys = {
   cameraOptions: "@asciicam/camera-options",
   settings: "@asciicam/settings",
   captures: "@asciicam/captures",
+  appUpdate: "@asciicam/app-update",
 } as const;

@@ -8,6 +8,7 @@ import {
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 
+import { AppUpdateModal } from "@/components/app-update-modal";
 import useFontLoading from "@/hooks/use-font-loading";
 import { FadeScreen, stackScreenOptions } from "@/layout";
 import { AppProviders } from "@/providers";
@@ -58,6 +59,8 @@ function RootNavigator() {
         <Stack.Screen name="(main)" options={FadeScreen} />
         <Stack.Screen name="+not-found" />
       </Stack>
+      {/* Not over the animated splash. */}
+      <AppUpdateModal enabled={pathname !== "/"} />
     </>
   );
 }
