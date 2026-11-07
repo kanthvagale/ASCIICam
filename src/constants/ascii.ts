@@ -26,5 +26,3 @@ export const BACKGROUND_PRESETS: readonly Swatch[] = [
   { value: "#F4ECD8", label: "Paper" },
   { value: "#FFFFFF", label: "White" },
 ];
-
-export const PREVIEW_FADE_MS = 220;

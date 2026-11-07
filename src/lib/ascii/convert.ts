@@ -67,3 +67,33 @@ export function pixelsToAscii(pixels: Uint8Array, options: ConvertOptions): stri
 
   return output;
 }
+
+export type LumaPlane = {
+  pixels: Uint8Array;
+  width: number;
+  height: number;
+  bytesPerRow: number;
+};
+
+/** Samples a camera Y (brightness) plane down to width × height, stretched like the GPU resizer. */
+export function lumaToAscii(plane: LumaPlane, options: Omit<ConvertOptions, "layout">): string {
+  "worklet";
+  const { width, height, chars, invert, reverse = false } = options;
+  let output = "";
+
+  for (let row = 0; row < height; row++) {
+    const y = reverse ? height - 1 - row : row;
+    const rowStart = Math.floor(((y + 0.5) * plane.height) / height) * plane.bytesPerRow;
+
+    for (let col = 0; col < width; col++) {
+      const x = reverse ? width - 1 - col : col;
+      const luma = plane.pixels[rowStart + Math.floor(((x + 0.5) * plane.width) / width)];
+      // Camera Y is video range (16–235).
+      output += luminanceToChar(Math.min(255, Math.max(0, ((luma - 16) * 255) / 219)), chars, invert);
+    }
+
+    if (row !== height - 1) output += "\n";
+  }
+
+  return output;
+}

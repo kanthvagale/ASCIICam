@@ -8,16 +8,25 @@ import {
   useFrameOutput,
 } from "react-native-vision-camera";
 import { useResizer } from "react-native-vision-camera-resizer";
+import { scheduleOnRN } from "react-native-worklets";
 
 import type { AsciiRendererHandle } from "@/components/ascii";
 
-import { PREVIEW_FADE_MS } from "@/constants/ascii";
 import { useIsForeground } from "@/hooks/use-is-foreground";
-import { pixelsToAscii } from "@/lib/ascii";
+import { lumaToAscii, pixelsToAscii } from "@/lib/ascii";
 import { capturePngUri, exportToPhotos, saveCapture } from "@/services/captures";
+import { reportError } from "@/services/crashlytics";
 import { useAsciiCamOptionsStore } from "@/store/camera-options";
 import { useCapturesStore } from "@/store/captures";
 import { type CameraPosition, useSettingsStore } from "@/store/settings";
+
+// Fixed so changing the ASCII resolution never rebuilds the camera stream (a new object here
+// recreates the frame output and reconfigures the session). 4:3 like the grid, enough for 512 columns.
+const STREAM_RESOLUTION = { width: 640, height: 480 };
+
+function reportResizeFailure(message: string) {
+  reportError(new Error(message), "camera.resize");
+}
 
 export function useCameraController(previewRef: RefObject<AsciiRendererHandle | null>) {
   const router = useRouter();
@@ -42,23 +51,21 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
   const isForeground = useIsForeground();
   const isActive = isFocused && isForeground;
 
+  // Clear so refocusing doesn't flash a stale frame.
   useEffect(() => {
     if (isActive) return;
-    // Clear after the fade-out so refocusing doesn't flash a stale frame.
-    const timeout = setTimeout(() => {
-      ascii.set("");
-      fps.set(0);
-      lastFrameTime.set(0);
-      frameCount.set(0);
-    }, PREVIEW_FADE_MS);
-    return () => clearTimeout(timeout);
+    ascii.set("");
+    fps.set(0);
+    lastFrameTime.set(0);
+    frameCount.set(0);
   }, [ascii, fps, frameCount, isActive, lastFrameTime]);
 
   useEffect(() => {
     if (!hasPermission) void requestPermission();
   }, [hasPermission, requestPermission]);
 
-  const { resizer } = useResizer({
+  // The GPU resizer needs Vulkan 1.1, which many low-end Android phones lack; those fall back to the CPU.
+  const { resizer, error: resizerError } = useResizer({
     width: resWidth,
     height: resHeight,
     channelOrder: "rgb",
@@ -66,6 +73,11 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
     pixelLayout: "planar",
     scaleMode: "stretch",
   });
+  const resizeFailed = useSharedValue(false);
+
+  useEffect(() => {
+    if (resizerError) reportError(resizerError, "camera.resizer");
+  }, [resizerError]);
 
   const trackFps = useCallback((frame: Frame) => {
     "worklet";
@@ -83,36 +95,77 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
     }
   }, [fps, frameCount, lastFrameTime]);
 
-  const frameOutput = useFrameOutput({
-    pixelFormat: "yuv",
-    targetResolution: { height: resHeight, width: resWidth },
-    dropFramesWhileBusy: true,
-    onFrame(frame) {
-      "worklet";
-      const resizedFrame = resizer?.resize(frame);
-      const buffer = resizedFrame?.getPixelBuffer();
-
-      if (!buffer || !resizedFrame?.width || !frame.isValid) {
-        resizedFrame?.dispose();
-        frame.dispose();
-        return;
-      }
-
-      trackFps(frame);
-
-      ascii.set(pixelsToAscii(new Uint8Array(buffer), {
-        width: resWidth,
-        height: resHeight,
+  const gpuAscii = useCallback((frame: Frame) => {
+    "worklet";
+    if (!resizer) return undefined;
+    const resized = resizer.resize(frame);
+    try {
+      // A new resizer is created async after a resolution change, so use its own size.
+      if (!resized.width || !resized.height) return undefined;
+      return pixelsToAscii(new Uint8Array(resized.getPixelBuffer()), {
+        width: resized.width,
+        height: resized.height,
         chars: asciiChars,
         invert,
         layout: { kind: "planar" },
         reverse: true,
-      }));
+      });
+    } finally {
+      resized.dispose();
+    }
+  }, [asciiChars, invert, resizer]);
 
-      resizedFrame.dispose();
-      frame.dispose();
+  const cpuAscii = useCallback((frame: Frame) => {
+    "worklet";
+    if (!frame.isPlanar) return undefined;
+    const planes = frame.getPlanes();
+    try {
+      const luma = planes[0];
+      if (!luma) return undefined;
+      return lumaToAscii(
+        {
+          pixels: new Uint8Array(luma.getPixelBuffer()),
+          width: luma.width,
+          height: luma.height,
+          bytesPerRow: luma.bytesPerRow,
+        },
+        { width: resWidth, height: resHeight, chars: asciiChars, invert, reverse: true },
+      );
+    } finally {
+      for (const plane of planes) plane.dispose();
+    }
+  }, [asciiChars, invert, resHeight, resWidth]);
+
+  const frameOutput = useFrameOutput({
+    pixelFormat: "yuv",
+    targetResolution: STREAM_RESOLUTION,
+    dropFramesWhileBusy: true,
+    onFrame(frame) {
+      "worklet";
+      try {
+        if (!frame.isValid) return;
+
+        let text: string | undefined;
+        if (resizer && !resizeFailed.get()) {
+          try {
+            text = gpuAscii(frame);
+          } catch (error) {
+            resizeFailed.set(true);
+            scheduleOnRN(reportResizeFailure, String(error));
+          }
+        }
+        if (text === undefined && (!resizer || resizeFailed.get())) text = cpuAscii(frame);
+        if (text === undefined) return;
+
+        trackFps(frame);
+        ascii.set(text);
+      } finally {
+        frame.dispose();
+      }
     },
   });
+
+  const onCameraError = useCallback((error: Error) => reportError(error, "camera.session"), []);
 
   const flip = useCallback(() => {
     setPosition((prev) => (prev === "back" ? "front" : "back"));
@@ -172,6 +225,7 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
     ascii,
     fps,
     frameOutput,
+    onCameraError,
     hasPermission,
     requestPermission,
     isActive,

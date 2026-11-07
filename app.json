@@ -75,7 +75,8 @@
             "photo"
           ]
         }
-      ]
+      ],
+      "./plugins/with-camerax-version.js"
     ],
     "experiments": {
       "typedRoutes": true,

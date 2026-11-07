@@ -1,14 +1,12 @@
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Camera } from "react-native-vision-camera";
 
 import { type AsciiRendererHandle, AsciiRenderer } from "@/components/ascii";
 import { CameraBottomBar, CameraTopBar } from "@/components/camera";
 import { Button, Text } from "@/components/ui";
-import { PREVIEW_FADE_MS } from "@/constants/ascii";
 import { capturePngUri } from "@/services/captures";
 import { useCameraController } from "@/services/controllers";
 import { makeStyles } from "@/theme";
@@ -40,15 +38,11 @@ export default function CameraScreen() {
               device={vm.position}
               outputs={[vm.frameOutput]}
               mirrorMode="off"
-              constraints={[{ fps: 60 }]}
               orientationSource="custom"
+              onError={vm.onCameraError}
             />
             {vm.isActive ? (
-              <Animated.View
-                entering={FadeIn.duration(PREVIEW_FADE_MS)}
-                exiting={FadeOut.duration(PREVIEW_FADE_MS)}
-                style={styles.fill}
-              >
+              <View style={styles.fill}>
                 <AsciiRenderer
                   ref={previewRef}
                   text={vm.ascii}
@@ -57,7 +51,7 @@ export default function CameraScreen() {
                   color={vm.options.foreground}
                   background={vm.options.background}
                 />
-              </Animated.View>
+              </View>
             ) : null}
           </>
         ) : (
