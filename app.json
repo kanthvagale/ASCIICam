@@ -2,7 +2,7 @@
   "expo": {
     "name": "ASCIICam",
     "slug": "ASCIICam",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "asciicam",
@@ -23,14 +23,17 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "permissions": [
-        "android.permission.CAMERA"
-      ],
+      "permissions": ["android.permission.CAMERA"],
       "package": "com.happitite.ASCIICam",
       "blockedPermissions": [
-        "android.permission.RECORD_AUDIO"
+        "android.permission.RECORD_AUDIO",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_VISUAL_USER_SELECTED",
+        "android.permission.READ_MEDIA_AUDIO"
       ],
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 3
     },
     "web": {
       "output": "static",
@@ -71,11 +74,10 @@
           "photosPermission": "ASCIICam needs access to your photos to save your ASCII captures.",
           "savePhotosPermission": "ASCIICam saves your ASCII captures to your photo library.",
           "isAccessMediaLocationEnabled": false,
-          "granularPermissions": [
-            "photo"
-          ]
+          "granularPermissions": []
         }
       ],
+      "./plugins/with-release-signing.js",
       "./plugins/with-camerax-version.js"
     ],
     "experiments": {
