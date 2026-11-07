@@ -50,6 +50,8 @@ export default function CameraScreen() {
                   rows={vm.options.resHeight}
                   color={vm.options.foreground}
                   background={vm.options.background}
+                  colors={vm.options.colorMode === "original" ? vm.colors : undefined}
+                  chars={vm.options.asciiChars}
                 />
               </View>
             ) : null}

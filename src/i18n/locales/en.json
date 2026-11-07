@@ -27,6 +27,12 @@
     "resolution": "Resolution",
     "resolutionHint": "Characters per row. Higher is sharper but slower.",
     "charset": "Character set",
+    "colorMode": "Colour",
+    "colorModeHint": "Original keeps each character's colour from the image.",
+    "colorModes": {
+      "mono": "Mono",
+      "original": "Original"
+    },
     "foreground": "Text colour",
     "background": "Background",
     "invert": "Invert brightness",

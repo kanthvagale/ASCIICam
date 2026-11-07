@@ -26,3 +26,7 @@ export const BACKGROUND_PRESETS: readonly Swatch[] = [
   { value: "#F4ECD8", label: "Paper" },
   { value: "#FFFFFF", label: "White" },
 ];
+
+/** Mono draws every character in the text colour; original keeps each cell's colour from the image. */
+export const COLOR_MODES = ["mono", "original"] as const;
+export type ColorMode = (typeof COLOR_MODES)[number];

@@ -4,6 +4,7 @@ import { View } from "react-native";
 import { PillGroup, Section, SwatchRow, ToggleRow } from "@/components/ui";
 import {
   BACKGROUND_PRESETS,
+  COLOR_MODES,
   FOREGROUND_PRESETS,
   RESOLUTION_PRESETS,
 } from "@/constants/ascii";
@@ -30,6 +31,10 @@ export function AsciiOptionsForm({ value, onChange, compact = false }: AsciiOpti
     value: id,
     label: t(`options.charsets.${id}`),
   }));
+  const colorModeOptions = COLOR_MODES.map((mode) => ({
+    value: mode,
+    label: t(`options.colorModes.${mode}`),
+  }));
 
   return (
     <View style={styles.form}>
@@ -51,13 +56,24 @@ export function AsciiOptionsForm({ value, onChange, compact = false }: AsciiOpti
         />
       </Section>
 
-      <Section title={t("options.foreground")}>
-        <SwatchRow
-          swatches={FOREGROUND_PRESETS}
-          value={value.foreground}
-          onChange={(foreground) => onChange({ foreground })}
+      <Section title={t("options.colorMode")} hint={compact ? undefined : t("options.colorModeHint")}>
+        <PillGroup
+          options={colorModeOptions}
+          value={value.colorMode}
+          onChange={(colorMode) => onChange({ colorMode })}
+          scrollable={compact}
         />
       </Section>
+
+      {value.colorMode === "mono" ? (
+        <Section title={t("options.foreground")}>
+          <SwatchRow
+            swatches={FOREGROUND_PRESETS}
+            value={value.foreground}
+            onChange={(foreground) => onChange({ foreground })}
+          />
+        </Section>
+      ) : null}
 
       <Section title={t("options.background")}>
         <SwatchRow

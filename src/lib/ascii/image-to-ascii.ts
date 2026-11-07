@@ -12,6 +12,8 @@ export type ImageToAsciiOptions = {
 
 export type AsciiImage = {
   text: string;
+  /** Per-cell RGBA (columns × rows × 4). */
+  colors: Uint8Array;
   columns: number;
   rows: number;
 };
@@ -40,13 +42,18 @@ export async function imageToAscii(uri: string, options: ImageToAsciiOptions): P
   const resized = await image.resizeAsync(columns, rows).finally(() => image.dispose());
   const raw = await resized.toRawPixelDataAsync().finally(() => resized.dispose());
 
-  const text = pixelsToAscii(new Uint8Array(raw.buffer), {
-    width: raw.width,
-    height: raw.height,
-    chars: options.chars,
-    invert: options.invert,
-    layout: layoutFor(raw.pixelFormat, raw.width, raw.height, raw.buffer.byteLength),
-  });
+  const colors = new Uint8Array(raw.width * raw.height * 4);
+  const text = pixelsToAscii(
+    new Uint8Array(raw.buffer),
+    {
+      width: raw.width,
+      height: raw.height,
+      chars: options.chars,
+      invert: options.invert,
+      layout: layoutFor(raw.pixelFormat, raw.width, raw.height, raw.buffer.byteLength),
+    },
+    colors,
+  );
 
-  return { text, columns: raw.width, rows: raw.height };
+  return { text, colors, columns: raw.width, rows: raw.height };
 }

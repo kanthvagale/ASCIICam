@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 import {
+  type ColorMode,
   DEFAULT_RESOLUTION,
   FONT_WH_RATIO,
   type Resolution,
@@ -14,6 +15,7 @@ import { persistStorage } from "./persist-storage";
 export type AsciiOptions = {
   resWidth: Resolution;
   charsetId: CharsetId;
+  colorMode: ColorMode;
   foreground: string;
   background: string;
   invert: boolean;
@@ -35,6 +37,7 @@ export type AsciiCamOptions = AsciiOptions &
 export const defaultAsciiOptions: AsciiOptions = {
   resWidth: DEFAULT_RESOLUTION,
   charsetId: DEFAULT_CHARSET,
+  colorMode: "mono",
   foreground: "#FFFFFF",
   background: "#000000",
   invert: false,
@@ -52,6 +55,7 @@ export function deriveOptions(options: AsciiOptions): DerivedOptions {
 const pickOptions = (state: AsciiOptions): AsciiOptions => ({
   resWidth: state.resWidth,
   charsetId: state.charsetId,
+  colorMode: state.colorMode,
   foreground: state.foreground,
   background: state.background,
   invert: state.invert,

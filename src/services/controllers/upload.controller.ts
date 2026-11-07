@@ -1,7 +1,7 @@
 import * as Clipboard from "expo-clipboard";
 import * as Haptics from "expo-haptics";
 import * as ImagePicker from "expo-image-picker";
-import { type RefObject, useCallback, useEffect, useState } from "react";
+import { type RefObject, useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Alert } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
@@ -21,8 +21,8 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
   const haptics = useSettingsStore((s) => s.haptics);
 
   const [options, setOptionsState] = useState<AsciiOptions>(() => {
-    const { charsetId, foreground, background, invert } = useAsciiCamOptionsStore.getState();
-    return { resWidth: RESOLUTION_PRESETS[0], charsetId, foreground, background, invert };
+    const { charsetId, colorMode, foreground, background, invert } = useAsciiCamOptionsStore.getState();
+    return { resWidth: RESOLUTION_PRESETS[0], charsetId, colorMode, foreground, background, invert };
   });
   const [imageUri, setImageUri] = useState<string | null>(null);
   const [grid, setGrid] = useState<{ columns: number; rows: number } | null>(null);
@@ -30,21 +30,26 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
   const [isSaving, setIsSaving] = useState(false);
   const [savedKey, setSavedKey] = useState<string | null>(null);
   const ascii = useSharedValue("");
+  const colors = useSharedValue<Uint8Array | null>(null);
 
   const { resWidth, charsetId, invert } = options;
+  const chars = useMemo(() => getCharset(charsetId), [charsetId]);
   // Colours don't change the characters.
   const inputKey = imageUri ? `${imageUri}|${resWidth}|${charsetId}|${invert}` : null;
   const isConverting = inputKey !== null && inputKey !== convertedKey;
-  const lookKey = inputKey ? `${inputKey}|${options.foreground}|${options.background}` : null;
+  const lookKey = inputKey
+    ? `${inputKey}|${options.colorMode}|${options.foreground}|${options.background}`
+    : null;
   const isSaved = lookKey !== null && lookKey === savedKey;
 
   useEffect(() => {
     if (!imageUri || !inputKey) return;
     let cancelled = false;
 
-    imageToAscii(imageUri, { columns: resWidth, chars: getCharset(charsetId), invert })
+    imageToAscii(imageUri, { columns: resWidth, chars, invert })
       .then((result) => {
         if (cancelled) return;
+        colors.value = result.colors;
         ascii.value = result.text;
         setGrid({ columns: result.columns, rows: result.rows });
       })
@@ -59,7 +64,7 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
     return () => {
       cancelled = true;
     };
-  }, [ascii, charsetId, imageUri, inputKey, invert, resWidth, t]);
+  }, [ascii, chars, colors, imageUri, inputKey, invert, resWidth, t]);
 
   const pickImage = useCallback(async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -83,6 +88,7 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
         columns: grid.columns,
         rows: grid.rows,
         charsetId: options.charsetId,
+        colorMode: options.colorMode,
         foreground: options.foreground,
         background: options.background,
         invert: options.invert,
@@ -110,6 +116,8 @@ export function useUploadController(previewRef: RefObject<AsciiRendererHandle | 
 
   return {
     ascii,
+    colors,
+    chars,
     options,
     setOptions: (patch: Partial<AsciiOptions>) => setOptionsState((prev) => ({ ...prev, ...patch })),
     hasImage: imageUri !== null,

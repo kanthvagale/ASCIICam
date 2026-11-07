@@ -29,6 +29,8 @@ export default function OptionsScreen() {
               rows={vm.previewRows}
               color={vm.options.foreground}
               background={vm.options.background}
+              colors={vm.options.colorMode === "original" ? vm.previewColors : undefined}
+              chars={vm.chars}
             />
           </View>
         </Section>

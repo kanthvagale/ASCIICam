@@ -72,6 +72,8 @@ export default function UploadScreen() {
               rows={vm.grid.rows}
               color={vm.options.foreground}
               background={vm.options.background}
+              colors={vm.options.colorMode === "original" ? vm.colors : undefined}
+              chars={vm.chars}
             />
           ) : null}
           {vm.isConverting ? (
