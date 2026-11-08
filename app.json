@@ -2,7 +2,7 @@
   "expo": {
     "name": "ASCIICam",
     "slug": "ASCIICam",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "asciicam",
@@ -33,7 +33,7 @@
         "android.permission.READ_MEDIA_AUDIO"
       ],
       "googleServicesFile": "./google-services.json",
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "output": "static",
