@@ -110,7 +110,9 @@
     "gallery": "Open gallery",
     "shutter": "Capture",
     "flip": "Switch camera",
-    "upload": "Upload image"
+    "upload": "Upload image",
+    "exposure": "Exposure",
+    "exposureHint": "Drag up to brighten or down to darken. Double-tap to reset."
   },
   "update": {
     "availableTitle": "Update available",

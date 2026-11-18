@@ -1,9 +1,11 @@
 import * as Haptics from "expo-haptics";
 import { useIsFocused, useRouter } from "expo-router";
-import { type RefObject, useCallback, useEffect, useState } from "react";
+import { type RefObject, useCallback, useEffect, useMemo, useState } from "react";
+import { Platform } from "react-native";
 import { useSharedValue } from "react-native-reanimated";
 import {
   type Frame,
+  useCameraDevice,
   useCameraPermission,
   useFrameOutput,
 } from "react-native-vision-camera";
@@ -11,6 +13,7 @@ import { useResizer } from "react-native-vision-camera-resizer";
 import { scheduleOnRN } from "react-native-worklets";
 
 import type { AsciiRendererHandle } from "@/components/ascii";
+import type { ExposureRange } from "@/components/camera";
 
 import { useIsForeground } from "@/hooks/use-is-foreground";
 import { lumaToAscii, pixelsToAscii } from "@/lib/ascii";
@@ -40,6 +43,16 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
   const { hasPermission, requestPermission } = useCameraPermission();
   const [position, setPosition] = useState<CameraPosition>(settings.defaultCamera);
   const [isCapturing, setIsCapturing] = useState(false);
+
+  // Exposure bias for the current camera: EV on iOS, CameraX's whole compensation steps on Android.
+  const device = useCameraDevice(position);
+  const exposure = useSharedValue(0);
+  const exposureRange = useMemo<ExposureRange | null>(() => {
+    if (!device?.supportsExposureBias) return null;
+    const { minExposureBias: min, maxExposureBias: max } = device;
+    if (min >= max) return null;
+    return { min, max, step: Platform.OS === "android" ? 1 : 0.1 };
+  }, [device]);
 
   const ascii = useSharedValue<string>("");
   const fps = useSharedValue(0);
@@ -168,9 +181,11 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
   const onCameraError = useCallback((error: Error) => reportError(error, "camera.session"), []);
 
   const flip = useCallback(() => {
+    // Each camera has its own range, so start the other one at normal exposure.
+    exposure.set(0);
     setPosition((prev) => (prev === "back" ? "front" : "back"));
     if (settings.haptics) void Haptics.selectionAsync();
-  }, [settings.haptics]);
+  }, [exposure, settings.haptics]);
 
   const shutterPressIn = useCallback(() => {
     if (settings.haptics) void Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
@@ -224,6 +239,8 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
   return {
     ascii,
     fps,
+    exposure,
+    exposureRange,
     frameOutput,
     onCameraError,
     hasPermission,
@@ -231,6 +248,7 @@ export function useCameraController(previewRef: RefObject<AsciiRendererHandle | 
     isActive,
     position,
     showFps: settings.showFps,
+    haptics: settings.haptics,
     options,
     latestCapture,
     isCapturing,

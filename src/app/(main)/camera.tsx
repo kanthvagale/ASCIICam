@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Camera } from "react-native-vision-camera";
 
 import { type AsciiRendererHandle, AsciiRenderer } from "@/components/ascii";
-import { CameraBottomBar, CameraTopBar } from "@/components/camera";
+import { CameraBottomBar, CameraTopBar, ExposureControl } from "@/components/camera";
 import { Button, Text } from "@/components/ui";
 import { capturePngUri } from "@/services/captures";
 import { useCameraController } from "@/services/controllers";
@@ -39,10 +39,16 @@ export default function CameraScreen() {
               outputs={[vm.frameOutput]}
               mirrorMode="off"
               orientationSource="custom"
+              exposure={vm.exposureRange ? vm.exposure : undefined}
               onError={vm.onCameraError}
             />
             {vm.isActive ? (
-              <View style={styles.fill}>
+              <ExposureControl
+                exposure={vm.exposure}
+                range={vm.exposureRange}
+                haptics={vm.haptics}
+                resetKey={vm.position}
+              >
                 <AsciiRenderer
                   ref={previewRef}
                   text={vm.ascii}
@@ -51,7 +57,7 @@ export default function CameraScreen() {
                   color={vm.options.foreground}
                   background={vm.options.background}
                 />
-              </View>
+              </ExposureControl>
             ) : null}
           </>
         ) : (
@@ -88,7 +94,6 @@ const useStyles = makeStyles((theme) => ({
   root: { flex: 1, backgroundColor: "#000000" },
   preview: { flex: 1, borderRadius: theme.radii.lg, overflow: "hidden" },
   invisible: { height: 0, width: 0, position: "absolute" },
-  fill: { flex: 1 },
   permission: {
     flex: 1,
     alignItems: "center",
