@@ -34,7 +34,7 @@
         "android.permission.READ_MEDIA_AUDIO"
       ],
       "googleServicesFile": "./google-services.json",
-      "versionCode": 5
+      "versionCode": 6
     },
     "web": {
       "output": "static",
@@ -79,7 +79,9 @@
         }
       ],
       "./plugins/with-release-signing.js",
-      "./plugins/with-camerax-version.js"
+      "./plugins/with-camerax-version.js",
+      "./plugins/with-gradle-memory.js",
+      "./plugins/with-optional-portrait.js"
     ],
     "experiments": {
       "typedRoutes": true,
