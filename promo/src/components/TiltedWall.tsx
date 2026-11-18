@@ -1,7 +1,6 @@
-import { useCurrentFrame } from "remotion";
+import { useCurrentFrame, useVideoConfig } from "remotion";
 
 import type { Clip } from "../clips";
-import { HEIGHT, WIDTH } from "../constants";
 import { Phone, phoneSize } from "./Phone";
 
 type TiltedWallProps = {
@@ -15,6 +14,8 @@ type TiltedWallProps = {
   push?: number;
   focusWidth?: number;
   opacity?: number;
+  cols?: number[];
+  rows?: number[];
 };
 
 const COLS = [-3, -2, -1, 0, 1, 2, 3];
@@ -29,8 +30,11 @@ export function TiltedWall({
   push = 0,
   focusWidth = phoneWidth,
   opacity = 1,
+  cols = COLS,
+  rows = ROWS,
 }: TiltedWallProps) {
   const frame = useCurrentFrame();
+  const { width, height } = useVideoConfig();
   const { outerWidth, outerHeight } = phoneSize(phoneWidth);
   const gapX = outerWidth * 0.14;
   const gapY = outerHeight * 0.06;
@@ -41,14 +45,14 @@ export function TiltedWall({
     <div
       style={{
         position: "absolute",
-        left: WIDTH / 2,
-        top: HEIGHT / 2,
+        left: width / 2,
+        top: height / 2,
         transform: `rotate(${angle * (1 - push)}deg) scale(${scale})`,
         opacity,
       }}
     >
-      {COLS.flatMap((col) =>
-        ROWS.map((row) => {
+      {cols.flatMap((col) =>
+        rows.map((row) => {
           const isCentre = col === 0 && row === 0;
           const columnShift = (Math.abs(col) % 2) * outerHeight * 0.42;
           const columnDrift = col === 0 ? 0 : (col % 2 === 0 ? 1 : -1) * frame * drift;

@@ -1,4 +1,4 @@
-import { AbsoluteFill, Sequence } from "remotion";
+import { AbsoluteFill, Audio, Sequence, staticFile } from "remotion";
 
 import { END_FRAMES, End } from "./beats/End";
 import { HOOK_FRAMES, Hook } from "./beats/Hook";
@@ -33,6 +33,7 @@ export function Promo() {
           <Beat />
         </Sequence>
       ))}
+      <Audio src={staticFile("audio/bed-promo.wav")} />
     </AbsoluteFill>
   );
 }

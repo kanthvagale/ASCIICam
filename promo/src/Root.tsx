@@ -5,6 +5,8 @@ import { Composition } from "remotion";
 import { FPS, HEIGHT, WIDTH, sec } from "./constants";
 import { FEATURE_HEIGHT, FEATURE_WIDTH, FeatureGraphic } from "./FeatureGraphic";
 import { PROMO_FRAMES, Promo } from "./Promo";
+import { VERTICAL_FRAMES, Vertical } from "./Vertical";
+import { V_HEIGHT, V_WIDTH } from "./vertical/layout";
 import { SHOT_HEIGHT, SHOT_WIDTH, SHOTS, StoreScreenshot } from "./StoreScreenshot";
 
 // Stills render frame 0, but Freeze clamps to the composition's length, so give them room for every freezeAt.
@@ -15,6 +17,14 @@ export function Root() {
   return (
     <>
       <Composition id="Promo" component={Promo} durationInFrames={PROMO_FRAMES} fps={FPS} width={WIDTH} height={HEIGHT} />
+      <Composition
+        id="Vertical"
+        component={Vertical}
+        durationInFrames={VERTICAL_FRAMES}
+        fps={FPS}
+        width={V_WIDTH}
+        height={V_HEIGHT}
+      />
       <Composition
         id="FeatureGraphic"
         component={FeatureGraphic}

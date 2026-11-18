@@ -7,7 +7,7 @@ import { Phone } from "../components/Phone";
 import { PhoneSlot, mix, useBeatFade, useEase } from "../components/motion";
 
 export const KEEP_FRAMES = 128;
-const GALLERY_FRAMES = clipFrames(clips.gallery);
+export const GALLERY_FRAMES = clipFrames(clips.gallery);
 const WIDTH = 380;
 
 const CARDS: { clip: Clip; at: number; x: number; y: number; rotate: number }[] = [
@@ -46,8 +46,19 @@ export function Keep() {
   );
 }
 
+type CaptureCardProps = {
+  clip: Clip;
+  at: number;
+  x: number;
+  y: number;
+  rotate: number;
+  index: number;
+  /** Where the card flies out from. */
+  origin?: { x: number; y: number };
+};
+
 /** A capture "print" that flies out of the phone as the viewer opens. */
-function CaptureCard({ clip, at, x, y, rotate, index }: { clip: Clip; at: number; x: number; y: number; rotate: number; index: number }) {
+export function CaptureCard({ clip, at, x, y, rotate, index, origin = { x: 1140, y: 540 } }: CaptureCardProps) {
   const t = useEase(GALLERY_FRAMES + 4 + index * 5, 22);
   const width = 230;
   const height = 230;
@@ -58,8 +69,8 @@ function CaptureCard({ clip, at, x, y, rotate, index }: { clip: Clip; at: number
     <div
       style={{
         position: "absolute",
-        left: mix(1140, x, t) - width / 2,
-        top: mix(540, y, t) - height / 2,
+        left: mix(origin.x, x, t) - width / 2,
+        top: mix(origin.y, y, t) - height / 2,
         width,
         height,
         borderRadius: 22,

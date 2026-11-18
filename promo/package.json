@@ -5,7 +5,8 @@
   "scripts": {
     "studio": "remotion studio",
     "still": "remotion still",
-    "render": "remotion render"
+    "render": "remotion render",
+    "music": "sh scripts/make-music.sh"
   },
   "dependencies": {
     "@remotion/cli": "4.0.537",
