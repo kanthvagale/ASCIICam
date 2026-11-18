@@ -5,7 +5,7 @@ export const FONT_WH_RATIO = 3 / 4;
 /** JetBrains Mono advance width as a fraction of font size. */
 export const MONO_CHAR_ASPECT = 0.6;
 
-export const RESOLUTION_PRESETS = [48, 64, 96, 128, 160, 256, 512] as const;
+export const RESOLUTION_PRESETS = [48, 64, 96, 128, 160, 256] as const;
 export type Resolution = (typeof RESOLUTION_PRESETS)[number];
 
 export const DEFAULT_RESOLUTION: Resolution = 96;

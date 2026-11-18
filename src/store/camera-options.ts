@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 
 import {
   DEFAULT_RESOLUTION,
+  RESOLUTION_PRESETS,
   FONT_WH_RATIO,
   type Resolution,
 } from "@/constants/ascii";
@@ -77,6 +78,10 @@ export const useAsciiCamOptionsStore = create<AsciiCamOptions>()(
       partialize: (state) => pickOptions(state),
       merge: (persisted, current) => {
         const options = { ...pickOptions(current), ...(persisted as Partial<AsciiOptions>) };
+        // A saved width that's no longer offered (512 was removed) falls back to the largest one.
+        if (!RESOLUTION_PRESETS.includes(options.resWidth)) {
+          options.resWidth = RESOLUTION_PRESETS[RESOLUTION_PRESETS.length - 1];
+        }
         return { ...current, ...options, ...deriveOptions(options) };
       },
     },

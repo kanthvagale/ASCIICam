@@ -24,7 +24,7 @@ import { useCapturesStore } from "@/store/captures";
 import { type CameraPosition, useSettingsStore } from "@/store/settings";
 
 // Fixed so changing the ASCII resolution never rebuilds the camera stream (a new object here
-// recreates the frame output and reconfigures the session). 4:3 like the grid, enough for 512 columns.
+// recreates the frame output and reconfigures the session). 4:3 like the grid.
 const STREAM_RESOLUTION = { width: 640, height: 480 };
 
 function reportResizeFailure(message: string) {
