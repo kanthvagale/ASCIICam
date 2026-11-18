@@ -51,3 +51,4 @@ example
 /promo/node_modules/
 /promo/public/raw
 /promo/public/audio
+/promo/*.zip

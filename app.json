@@ -2,7 +2,7 @@
   "expo": {
     "name": "ASCIICam",
     "slug": "ASCIICam",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "asciicam",
@@ -13,7 +13,8 @@
         "NSCameraUsageDescription": "ASCIICam uses the camera to turn what it sees into live ASCII art."
       },
       "bundleIdentifier": "com.happitite.ASCIICam",
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "appleTeamId": "GBPX827AHJ"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,7 +34,7 @@
         "android.permission.READ_MEDIA_AUDIO"
       ],
       "googleServicesFile": "./google-services.json",
-      "versionCode": 4
+      "versionCode": 5
     },
     "web": {
       "output": "static",
