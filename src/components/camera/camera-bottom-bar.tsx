@@ -1,3 +1,4 @@
+import type { Ref } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -14,6 +15,7 @@ export type CameraBottomBarProps = {
   onCapture: () => void;
   onShutterPressIn?: () => void;
   onFlip: () => void;
+  thumbRef?: Ref<View>;
 };
 
 export function CameraBottomBar({
@@ -23,6 +25,7 @@ export function CameraBottomBar({
   onCapture,
   onShutterPressIn,
   onFlip,
+  thumbRef,
 }: CameraBottomBarProps) {
   const styles = useStyles();
   const { t } = useTranslation();
@@ -30,7 +33,12 @@ export function CameraBottomBar({
   return (
     <View style={styles.bar}>
       <View style={styles.side}>
-        <GalleryThumb uri={thumbnailUri} onPress={onGallery} accessibilityLabel={t("a11y.gallery")} />
+        <GalleryThumb
+          ref={thumbRef}
+          uri={thumbnailUri}
+          onPress={onGallery}
+          accessibilityLabel={t("a11y.gallery")}
+        />
       </View>
 
       <ShutterButton

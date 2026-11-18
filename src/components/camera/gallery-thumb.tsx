@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import type { Ref } from "react";
 import { Pressable, View } from "react-native";
 
 import { Icon } from "@/components/ui";
@@ -8,14 +9,16 @@ export type GalleryThumbProps = {
   uri?: string;
   onPress: () => void;
   accessibilityLabel: string;
+  ref?: Ref<View>;
 };
 
-export function GalleryThumb({ uri, onPress, accessibilityLabel }: GalleryThumbProps) {
+export function GalleryThumb({ uri, onPress, accessibilityLabel, ref }: GalleryThumbProps) {
   const styles = useStyles();
   const theme = useTheme();
 
   return (
     <Pressable
+      ref={ref}
       onPress={onPress}
       hitSlop={theme.sizes.hitSlop}
       accessibilityRole="button"
